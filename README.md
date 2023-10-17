@@ -49,14 +49,14 @@ The xxx part is an arbitrary string.
 ## 2. Execute tcal.py
 Suppose the directory structure is as follows.  
 ```
-xxx
+yyy
 ├── tcal.py
 └── xxx.gjf
 ```
 1. Open a terminal.
 2. Go to the directory where the files is located.
 ```
-cd xxx
+cd yyy
 ```
 3. Execute the following command.
 ```python
