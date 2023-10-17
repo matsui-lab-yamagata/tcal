@@ -3,12 +3,11 @@
 [![Python](https://img.shields.io/badge/python-3.6%20or%20newer-blue)](https://www.python.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 <!-- [![docs]()]() -->
-<!-- [![DOI]()]() -->
 
 # Requirements
 * Python 3.6 or newer
 * NumPy
-* Gaussian 9 or 16
+* Gaussian 09 or 16
 
 # Important notice
 * The two monomers must be the same molecule.
@@ -105,3 +104,12 @@ $$u_{\alpha \beta} \equiv \sum^{\alpha}_i \sum^{\beta}_j a^*_i b_j \frac{\braket
 # Referenece
 [1] Veaceslav Coropceanu *et al.*, Charge Transport in Organic Semiconductors, *Chem. Rev.* **2007**, *107*, 926-952.  
 [2] Satoru Inoue *et al.*, Regioisomeric control of layered crystallinity in solution-processable orgainc semiconductors, *Chem. Sci.* **2020**, *11*, 12493-12505.  
+
+# Authors
+[Matsui Laboratory, Research Center for Organic Electornics (ROEL), Yamagata University](https://matsui-lab.yz.yamagata-u.ac.jp/index-e.html)  
+Hiroyuki Matsui, Koki Ozawa  
+Email: h-matsui[at]yz.yamagata-u.ac.jp  
+Please replace [at] with @  
+
+# Acknowledgements
+This work was supported by JST, CREST, Grand Number JPMJCR18J2.
