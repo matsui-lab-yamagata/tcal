@@ -80,22 +80,27 @@ python tcal.py -cr xxx.gjf
 
 
 
-# Interatomic transfer integral: $u_{\alpha \beta}$
+# Interatomic transfer integral
 For calculating the transfer integral between molecule A and molecule B, DFT calculations were performed for monomer A, monomer B, and the dimer AB. The monomer molecular orbitals $\ket{A}$ and $\ket{B}$ were obtained from the monomer calculations. Fock matrix F and overlap matrix S were calculated in the dimer system. Finally the intermolecular transfer integral $t^{[1]}$ was calculated by using the following equation:
-$$
-t = \frac{\braket{A|F|B} - \frac{1}{2} (\epsilon_{A}+\epsilon_{B})\braket{A|S|B}}{1 - \braket{A|S|B}^2},
-$$
+
+$$t = \frac{\braket{A|F|B} - \frac{1}{2} (\epsilon_{A}+\epsilon_{B})\braket{A|S|B}}{1 - \braket{A|S|B}^2},$$
+
 where $\epsilon_A \equiv \braket{A|F|A}$ and $\epsilon_B \equiv \braket{B|F|B}$.  
 
-In addition to the intermolecular transfer integral in general use, we developed an interatomic transfer integral for further analysis $^{[2]}$. By grouping the basis functions $\ket{i}$ and $\ket{j}$ for each atom, the molecular orbitals can be expressed as $\ket{A} = \sum^A_{\alpha}\sum^{\alpha}_i a_i \ket{i}$ and $\ket{B} = \sum^B_{\beta}\sum^{\beta}_j b_j \ket{j}$, where $\alpha$ and $\beta$ are the indices of atoms, $i$ and $j$ are indices of basis functions, and $a_i$ and $b_j$ are the coefficients of basis functions. Substituting this formula into aforementioned equation gives
-$$
-t = \sum^{A}_{\alpha}\sum^{B}_{\beta}\sum^{\alpha}_{i}\sum^{\beta}_{j}{a^*_ib_j\frac{\braket{i|F|j} - \frac{1}{2} (\epsilon_{A}+\epsilon_{B})\braket{i|S|j}}{1 - \braket{A|S|B}^2}}
-$$
+In addition to the intermolecular transfer integral in general use, we developed an interatomic transfer integral for further analysis $^{[2]}$. By grouping the basis functions $\ket{i}$ and $\ket{j}$ for each atom, the molecular orbitals can be expressed as
 
-Here we define the interatomic transfer integral $u_{\alpha\beta}$ as:  
-$$
-u_{\alpha \beta} \equiv \sum^{\alpha}_{i}\sum^{\beta}_{j}{a^*_ib_j\frac{\braket{i|F|j} - \frac{1}{2} (\epsilon_{A}+\epsilon_{B})\braket{i|S|j}}{1 - \braket{A|S|B}^2}}
-$$
+$$\ket{A} = \sum^A_{\alpha} \sum^{\alpha}_i a_i \ket{i},$$ 
+
+$$\ket{B} = \sum^B_{\beta} \sum^{\beta}_j b_j \ket{j},$$
+
+where $\alpha$ and $\beta$ are the indices of atoms, $i$ and $j$ are indices of basis functions, and $a_i$ and $b_j$ are the coefficients of basis functions. Substituting this formula into aforementioned equation gives
+
+$$t = \sum^A_{\alpha} \sum^B_{\beta} \sum^{\alpha}_i \sum^{\beta}_j a^*_i b_j \frac{\braket{i|F|j} - \frac{1}{2} (\epsilon_A + \epsilon_B) \braket{i|S|j}}{1 - \braket{A|S|B}^2}$$
+
+Here we define the interatomic transfer integral $u_{\alpha\beta}$ as:
+
+$$u_{\alpha \beta} \equiv \sum^{\alpha}_i \sum^{\beta}_j a^*_i b_j \frac{\braket{i|F|j} - \frac{1}{2} (\epsilon_A + \epsilon_B) \braket{i|S|j}}{1 - \braket{A|S|B}^2}$$
+
 
 # Referenece
 [1] Veaceslav Coropceanu *et al.*, Charge Transport in Organic Semiconductors, *Chem. Rev.* **2007**, *107*, 926-952.  
