@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tcal module &mdash; tcal 0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=837179f8"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to tcal’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            tcal
+          </a>
+              <div class="version">
+                0.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">tcal module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#tcal.PairAnalysis"><code class="docutils literal notranslate"><span class="pre">PairAnalysis</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tcal.PairAnalysis.print_element_pairs"><code class="docutils literal notranslate"><span class="pre">PairAnalysis.print_element_pairs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tcal.PairAnalysis.print_largest_pairs"><code class="docutils literal notranslate"><span class="pre">PairAnalysis.print_largest_pairs()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tcal.Tcal"><code class="docutils literal notranslate"><span class="pre">Tcal</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tcal.Tcal.EV"><code class="docutils literal notranslate"><span class="pre">Tcal.EV</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tcal.Tcal.atomic_pair_transfer_analysis"><code class="docutils literal notranslate"><span class="pre">Tcal.atomic_pair_transfer_analysis()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tcal.Tcal.cal_transfer_integrals"><code class="docutils literal notranslate"><span class="pre">Tcal.cal_transfer_integrals()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tcal.Tcal.check_normal_termination"><code class="docutils literal notranslate"><span class="pre">Tcal.check_normal_termination()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tcal.Tcal.convert_xyz_to_gjf"><code class="docutils literal notranslate"><span class="pre">Tcal.convert_xyz_to_gjf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tcal.Tcal.create_cube_file"><code class="docutils literal notranslate"><span class="pre">Tcal.create_cube_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tcal.Tcal.create_monomer_file"><code class="docutils literal notranslate"><span class="pre">Tcal.create_monomer_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tcal.Tcal.custom_atomic_pair_transfer_analysis"><code class="docutils literal notranslate"><span class="pre">Tcal.custom_atomic_pair_transfer_analysis()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tcal.Tcal.execute"><code class="docutils literal notranslate"><span class="pre">Tcal.execute()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tcal.Tcal.extract_coordinates"><code class="docutils literal notranslate"><span class="pre">Tcal.extract_coordinates()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tcal.Tcal.extract_num"><code class="docutils literal notranslate"><span class="pre">Tcal.extract_num()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tcal.Tcal.output_csv"><code class="docutils literal notranslate"><span class="pre">Tcal.output_csv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tcal.Tcal.print_apta"><code class="docutils literal notranslate"><span class="pre">Tcal.print_apta()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tcal.Tcal.print_square_matrix"><code class="docutils literal notranslate"><span class="pre">Tcal.print_square_matrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tcal.Tcal.print_timestamp"><code class="docutils literal notranslate"><span class="pre">Tcal.print_timestamp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tcal.Tcal.print_transfer_integrals"><code class="docutils literal notranslate"><span class="pre">Tcal.print_transfer_integrals()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tcal.Tcal.read_dimer"><code class="docutils literal notranslate"><span class="pre">Tcal.read_dimer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tcal.Tcal.read_monomer1"><code class="docutils literal notranslate"><span class="pre">Tcal.read_monomer1()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tcal.Tcal.read_monomer2"><code class="docutils literal notranslate"><span class="pre">Tcal.read_monomer2()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tcal.Tcal.read_square_matrix"><code class="docutils literal notranslate"><span class="pre">Tcal.read_square_matrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tcal.Tcal.read_symmetric_matrix"><code class="docutils literal notranslate"><span class="pre">Tcal.read_symmetric_matrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tcal.Tcal.run_gaussian"><code class="docutils literal notranslate"><span class="pre">Tcal.run_gaussian()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tcal.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">tcal</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">tcal module</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-tcal">
+<span id="tcal-module"></span><h1>tcal module<a class="headerlink" href="#module-tcal" title="Link to this heading"></a></h1>
+<p>Tcal</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="tcal.PairAnalysis">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tcal.</span></span><span class="sig-name descname"><span class="pre">PairAnalysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">apta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tcal.html#PairAnalysis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tcal.PairAnalysis" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Analyze atomic pair transfer integrals.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tcal.PairAnalysis.print_element_pairs">
+<span class="sig-name descname"><span class="pre">print_element_pairs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tcal.html#PairAnalysis.print_element_pairs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tcal.PairAnalysis.print_element_pairs" title="Link to this definition"></a></dt>
+<dd><p>Print element pairs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tcal.PairAnalysis.print_largest_pairs">
+<span class="sig-name descname"><span class="pre">print_largest_pairs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tcal.html#PairAnalysis.print_largest_pairs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tcal.PairAnalysis.print_largest_pairs" title="Link to this definition"></a></dt>
+<dd><p>Print largest pairs.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tcal.Tcal">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tcal.</span></span><span class="sig-name descname"><span class="pre">Tcal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tcal.html#Tcal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tcal.Tcal" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Calculate transfer integrals.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tcal.Tcal.EV">
+<span class="sig-name descname"><span class="pre">EV</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">27211.38456571948</span></em><a class="headerlink" href="#tcal.Tcal.EV" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tcal.Tcal.atomic_pair_transfer_analysis">
+<span class="sig-name descname"><span class="pre">atomic_pair_transfer_analysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">analyze_orbital</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'HOMO'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_apta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tcal.html#Tcal.atomic_pair_transfer_analysis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tcal.Tcal.atomic_pair_transfer_analysis" title="Link to this definition"></a></dt>
+<dd><p>Calculate atomic pair transfer integrals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>analyze_orbital</strong> (<em>str</em><em>, </em><em>optional</em>) – Analyze orbital., default ‘HOMO’</p></li>
+<li><p><strong>output_apta</strong> (<em>bool</em><em>, </em><em>optional</em>) – If it is True, output csv file of atomic pair transfer integrals., default False</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tcal.Tcal.cal_transfer_integrals">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cal_transfer_integrals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overlap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fock</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ket</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tcal.html#Tcal.cal_transfer_integrals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tcal.Tcal.cal_transfer_integrals" title="Link to this definition"></a></dt>
+<dd><p>Calculate intermolecular transfer integrals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bra</strong> (<em>numpy.array</em>) – MO coefficients of one molecule.</p></li>
+<li><p><strong>overlap</strong> (<em>numpy.array</em>) – Overlap matrix of dimer.</p></li>
+<li><p><strong>fock</strong> (<em>numpy.array</em>) – Fock matrix of dimer.</p></li>
+<li><p><strong>ket</strong> (<em>numpy.array</em>) – MO coefficients of the other molecule.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Intermolecular transfer integrals.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>double</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tcal.Tcal.check_normal_termination">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check_normal_termination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tcal.html#Tcal.check_normal_termination"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tcal.Tcal.check_normal_termination" title="Link to this definition"></a></dt>
+<dd><p>Whether the calculation of gaussian was successful or not.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>reader</strong> (<em>_io.TextIOWrapper</em>) – Return value of open function.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Return value of function.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_io.TextIOWrapper</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;sample.log&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">f</span> <span class="o">=</span> <span class="n">Tcal</span><span class="o">.</span><span class="n">check_normal_termination</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tcal.Tcal.convert_xyz_to_gjf">
+<span class="sig-name descname"><span class="pre">convert_xyz_to_gjf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'B3LYP/6-31G(d,p)'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nprocshared</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mem</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'GB'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tcal.html#Tcal.convert_xyz_to_gjf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tcal.Tcal.convert_xyz_to_gjf" title="Link to this definition"></a></dt>
+<dd><p>Convert xyz file to gjf file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>function</strong> (<em>str</em><em>, </em><em>optional</em>) – _description_, default ‘b3lyp/6-31g(d,p)’</p></li>
+<li><p><strong>nprocshared</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of nprocshared., default 4</p></li>
+<li><p><strong>mem</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of memory., default 16</p></li>
+<li><p><strong>unit</strong> (<em>str</em><em>, </em><em>optional</em>) – The unit of memory., default ‘GB’</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tcal.Tcal.create_cube_file">
+<span class="sig-name descname"><span class="pre">create_cube_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tcal.html#Tcal.create_cube_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tcal.Tcal.create_cube_file" title="Link to this definition"></a></dt>
+<dd><p>Create cube file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tcal.Tcal.create_monomer_file">
+<span class="sig-name descname"><span class="pre">create_monomer_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tcal.html#Tcal.create_monomer_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tcal.Tcal.create_monomer_file" title="Link to this definition"></a></dt>
+<dd><p>Create gjf files of monomer from gjf file of dimer.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tcal.Tcal.custom_atomic_pair_transfer_analysis">
+<span class="sig-name descname"><span class="pre">custom_atomic_pair_transfer_analysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">analyze_orb1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analyze_orb2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_apta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tcal.html#Tcal.custom_atomic_pair_transfer_analysis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tcal.Tcal.custom_atomic_pair_transfer_analysis" title="Link to this definition"></a></dt>
+<dd><p>Calculate atomic pair transfer integrals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>analyze_orb1</strong> (<em>int</em><em>, </em><em>optional</em>) – Analyze orbital., default -1</p></li>
+<li><p><strong>analyze_orb2</strong> (<em>int</em><em>, </em><em>optional</em>) – Analyze orbital., default -1</p></li>
+<li><p><strong>output_apta</strong> (<em>bool</em><em>, </em><em>optional</em>) – If it is True, output csv file of atomic pair transfer integrals., default False</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tcal.Tcal.execute">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tcal.html#Tcal.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tcal.Tcal.execute" title="Link to this definition"></a></dt>
+<dd><p>Execute command</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>command_list</strong> (<em>list</em>) – A list of space-separated commands.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tcal.Tcal.extract_coordinates">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extract_coordinates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tcal.html#Tcal.extract_coordinates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tcal.Tcal.extract_coordinates" title="Link to this definition"></a></dt>
+<dd><p>Extract coordinates from gjf file of dimer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>reader</strong> (<em>_io.TextIOWrapper</em>) – Return value of open function.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>_io.TextIOWrapper</em> – Return value of open function.</p></li>
+<li><p><em>list</em> – The list of coordinates.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">re</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;sample.gjf&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">line</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">break</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;[-0-9]+ [0-3]&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+<span class="gp">... </span>            <span class="n">f</span><span class="p">,</span> <span class="n">coordinates</span> <span class="o">=</span> <span class="n">Tcal</span><span class="o">.</span><span class="n">extract_coordinates</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tcal.Tcal.extract_num">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extract_num</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tcal.html#Tcal.extract_num"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tcal.Tcal.extract_num" title="Link to this definition"></a></dt>
+<dd><p>Extract integer in strings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pattern</strong> (<em>str</em>) – Strings using regular expression.</p></li>
+<li><p><strong>line</strong> (<em>str</em>) – String of target.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>If there is integer, return it.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int or None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tcal.Tcal.output_csv">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">output_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tcal.html#Tcal.output_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tcal.Tcal.output_csv" title="Link to this definition"></a></dt>
+<dd><p>Output csv file of array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_name</strong> (<em>str</em>) – File name including extension.</p></li>
+<li><p><strong>array</strong> (<em>array_like</em>) – Array to create csv file.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tcal.Tcal.print_apta">
+<span class="sig-name descname"><span class="pre">print_apta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a_transfer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tcal.html#Tcal.print_apta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tcal.Tcal.print_apta" title="Link to this definition"></a></dt>
+<dd><p>Create list of apta and print it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_atoms</strong> (<em>int</em>) – The number of atoms.</p></li>
+<li><p><strong>labels</strong> (<em>list</em>) – The list of index and atom.</p></li>
+<li><p><strong>a_transfer</strong> (<em>numpy.array</em>) – Result of atomic pair transfer analysis.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The array of atomic pair transfer analysis.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tcal.Tcal.print_square_matrix">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">print_square_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tcal.html#Tcal.print_square_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tcal.Tcal.print_square_matrix" title="Link to this definition"></a></dt>
+<dd><p>Print square matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>matrix</strong> (<em>array_like</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tcal.Tcal.print_timestamp">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">print_timestamp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tcal.html#Tcal.print_timestamp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tcal.Tcal.print_timestamp" title="Link to this definition"></a></dt>
+<dd><p>Print timestamp.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tcal.Tcal.print_transfer_integrals">
+<span class="sig-name descname"><span class="pre">print_transfer_integrals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tcal.html#Tcal.print_transfer_integrals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tcal.Tcal.print_transfer_integrals" title="Link to this definition"></a></dt>
+<dd><p>Print transfer integrals of NLUMO, LUMO, HOMO and NHOMO.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tcal.Tcal.read_dimer">
+<span class="sig-name descname"><span class="pre">read_dimer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tcal.html#Tcal.read_dimer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tcal.Tcal.read_dimer" title="Link to this definition"></a></dt>
+<dd><p>Extract overlap and fock matrix from log file of dimer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>is_matrix</strong> (<em>bool</em><em>, </em><em>optional</em>) – If it is True, print overlap and fock matrix., default False</p></li>
+<li><p><strong>output_matrix</strong> (<em>bool</em><em>, </em><em>optional</em>) – If it is True, Output overlap and fock matrix., default False</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tcal.Tcal.read_monomer1">
+<span class="sig-name descname"><span class="pre">read_monomer1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tcal.html#Tcal.read_monomer1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tcal.Tcal.read_monomer1" title="Link to this definition"></a></dt>
+<dd><p>Extract MO coefficients from log file of monomer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>is_matrix</strong> (<em>bool</em><em>, </em><em>optional</em>) – If it is True, print MO coefficients., default False</p></li>
+<li><p><strong>output_matrix</strong> (<em>bool</em><em>, </em><em>optional</em>) – If it is True, Output MO coefficients., default False</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tcal.Tcal.read_monomer2">
+<span class="sig-name descname"><span class="pre">read_monomer2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tcal.html#Tcal.read_monomer2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tcal.Tcal.read_monomer2" title="Link to this definition"></a></dt>
+<dd><p>Extract MO coefficients from log file of monomer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>is_matrix</strong> (<em>bool</em><em>, </em><em>optional</em>) – If it is True, print MO coefficients., default False</p></li>
+<li><p><strong>output_matrix</strong> (<em>bool</em><em>, </em><em>optional</em>) – If it is True, Output MO coefficients., default False</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tcal.Tcal.read_square_matrix">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read_square_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_basis</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tcal.html#Tcal.read_square_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tcal.Tcal.read_square_matrix" title="Link to this definition"></a></dt>
+<dd><p>Read square matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>reader</strong> (<em>_io.TextIOWrapper</em>) – Return value of open function.</p></li>
+<li><p><strong>n_basis</strong> (<em>int</em>) – The number of column or row.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Read square matrix like MO coefficients.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tcal.Tcal.read_symmetric_matrix">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read_symmetric_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_basis</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tcal.html#Tcal.read_symmetric_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tcal.Tcal.read_symmetric_matrix" title="Link to this definition"></a></dt>
+<dd><p>Read symmetric matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>reader</strong> (<em>_io.TextIOWrapper</em>) – Return value of open function.</p></li>
+<li><p><strong>n_basis</strong> (<em>int</em>) – The number of column or row.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Read symmetrix matrix like overlap or fock matrix.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tcal.Tcal.run_gaussian">
+<span class="sig-name descname"><span class="pre">run_gaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gaussian_command</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tcal.html#Tcal.run_gaussian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tcal.Tcal.run_gaussian" title="Link to this definition"></a></dt>
+<dd><p>Execute gjf files using gaussian.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>gaussian_command</strong> (<em>str</em>) – Command of gaussian.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tcal.main">
+<span class="sig-prename descclassname"><span class="pre">tcal.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tcal.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tcal.main" title="Link to this definition"></a></dt>
+<dd><p>This code is to execute tcal for command line.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to tcal’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Matsui Laboratory in Yamagata University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

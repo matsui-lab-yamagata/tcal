@@ -1,0 +1,7 @@
+tcal module
+===========
+
+.. automodule:: tcal
+   :members:
+   :undoc-members:
+   :show-inheritance:
