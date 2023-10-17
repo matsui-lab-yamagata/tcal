@@ -1,0 +1,41 @@
+--------------------------------------
+ tcal beta (2022/12/17) by Matsui Lab. 
+--------------------------------------
+
+Input File Name: Anthracene.gjf
+Timestamp: Mon Oct 16 18:41:59 2023
+reading Anthracene_m1.log
+reading Anthracene_m2.log
+reading Anthracene.log
+> formchk Anthracene.chk Anthracene.fchk
+> formchk Anthracene_m1.chk Anthracene_m1.fchk
+> cubegen 0 mo=46 Anthracene_m1.fchk Anthracene_m1_NHOMO.cube -1 h Anthracene_dummy.cube
+> cubegen 0 mo=47 Anthracene_m1.fchk Anthracene_m1_HOMO.cube -1 h Anthracene_dummy.cube
+> cubegen 0 mo=48 Anthracene_m1.fchk Anthracene_m1_LUMO.cube -1 h Anthracene_dummy.cube
+> cubegen 0 mo=49 Anthracene_m1.fchk Anthracene_m1_NLUMO.cube -1 h Anthracene_dummy.cube
+cube file of the 1st monomer created
+ Anthracene_m1_NHOMO.cube
+ Anthracene_m1_HOMO.cube
+ Anthracene_m1_LUMO.cube
+ Anthracene_m1_NLUMO.cube
+> formchk Anthracene_m2.chk Anthracene_m2.fchk
+> cubegen 0 mo=46 Anthracene_m2.fchk Anthracene_m2_NHOMO.cube -1 h Anthracene_dummy.cube
+> cubegen 0 mo=47 Anthracene_m2.fchk Anthracene_m2_HOMO.cube -1 h Anthracene_dummy.cube
+> cubegen 0 mo=48 Anthracene_m2.fchk Anthracene_m2_LUMO.cube -1 h Anthracene_dummy.cube
+> cubegen 0 mo=49 Anthracene_m2.fchk Anthracene_m2_NLUMO.cube -1 h Anthracene_dummy.cube
+cube file of the 2nd monomer created
+ Anthracene_m2_NHOMO.cube
+ Anthracene_m2_HOMO.cube
+ Anthracene_m2_LUMO.cube
+ Anthracene_m2_NLUMO.cube
+
+--------------------
+ Transfer Integrals 
+--------------------
+NLUMO	-9.534	meV
+LUMO	38.443	meV
+HOMO	-42.823	meV
+NHOMO	2.605	meV
+
+Timestamp: Mon Oct 16 18:42:19 2023
+Elapsed Time: 20244 ms
