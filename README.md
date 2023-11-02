@@ -2,7 +2,7 @@
 
 [![Python](https://img.shields.io/badge/python-3.6%20or%20newer-blue)](https://www.python.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-<!-- [![docs]()]() -->
+[![docs](https://img.shields.io/badge/docs-here-11419572)](https://matsui-lab-yamagata.github.io/tcal/)
 
 # Requirements
 * Python 3.6 or newer
@@ -107,7 +107,7 @@ $$u_{\alpha \beta} \equiv \sum^{\alpha}_i \sum^{\beta}_j a^*_i b_j \frac{\braket
 
 # Example of using tcal
 1. [Satoru Inoue *et al.*, Regioisomeric control of layered crystallinity in solution-processable organic semiconductors, *Chem. Sci.* **2020**, *11*, 12493-12505.](https://pubs.rsc.org/en/content/articlelanding/2020/SC/D0SC04461J)  
-2. [Toshiki Higashino *et al.*, Architecting Layered Crystalline Organic Semiconductors Based on Unsymmetric π-Extended Thienoacenes, *Chem. Mater.* **2021**, *33*, 18, 7379–7385](https://pubs.acs.org/doi/10.1021/acs.chemmater.1c01972)  
+2. [Toshiki Higashino *et al.*, Architecting Layered Crystalline Organic Semiconductors Based on Unsymmetric π-Extended Thienoacenes, *Chem. Mater.* **2021**, *33*, 18, 7379–7385.](https://pubs.acs.org/doi/10.1021/acs.chemmater.1c01972)  
 
 # Authors
 [Matsui Laboratory, Research Center for Organic Electronics (ROEL), Yamagata University](https://matsui-lab.yz.yamagata-u.ac.jp/index-e.html)  
