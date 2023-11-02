@@ -105,6 +105,10 @@ $$u_{\alpha \beta} \equiv \sum^{\alpha}_i \sum^{\beta}_j a^*_i b_j \frac{\braket
 [1] Veaceslav Coropceanu *et al.*, Charge Transport in Organic Semiconductors, *Chem. Rev.* **2007**, *107*, 926-952.  
 [2] Satoru Inoue *et al.*, Regioisomeric control of layered crystallinity in solution-processable orgainc semiconductors, *Chem. Sci.* **2020**, *11*, 12493-12505.  
 
+# Example of using tcal
+1. [Satoru Inoue *et al.*, Regioisomeric control of layered crystallinity in solution-processable orgainc semiconductors, *Chem. Sci.* **2020**, *11*, 12493-12505.](https://pubs.rsc.org/en/content/articlelanding/2020/SC/D0SC04461J)  
+2. [Toshiki Higashino *et al.*, Architecting Layered Crystalline Organic Semiconductors Based on Unsymmetric π-Extended Thienoacenes, *Chem. Mater.* **2021**, *33*, 18, 7379–7385](https://pubs.acs.org/doi/10.1021/acs.chemmater.1c01972)  
+
 # Authors
 [Matsui Laboratory, Research Center for Organic Electornics (ROEL), Yamagata University](https://matsui-lab.yz.yamagata-u.ac.jp/index-e.html)  
 Hiroyuki Matsui, Koki Ozawa  
