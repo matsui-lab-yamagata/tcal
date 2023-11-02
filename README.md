@@ -16,15 +16,15 @@
 # Options
 |Short|Long|Explanation|
 |----|----|----|
-|-a|--aptp|Perform atomic pair transfer analysis.|
+|-a|--apta|Perform atomic pair transfer analysis.|
 |-c|--cube|Generate cube files.|
-|-g|--g09|Use Gaussian 09. (defalut is Gaussian 16)|
+|-g|--g09|Use Gaussian 09. (default is Gaussian 16)|
 |-h|--help|Show options description.|
 |-l|--lumo|Perform atomic pair transfer analysis of LUMO.|
 |-m|--matrix|Print MO coefficients, overlap matrix and Fock matrix.|
 |-o|--output|Output csv file on the result of apta.|
 |-r|--read|Read log files without executing Gaussian.|
-|-x|--xyz|Convert xyz to gjf.|
+|-x|--xyz|Convert xyz file to gjf file.|
 
 # How to use
 ## 1. Create gjf file
@@ -34,8 +34,8 @@ ex: xxx.gjf
 The xxx part is an arbitrary string.
 
 ### Description of link commands
-**pop=full**: Required to output coefficients of basis functions, overlap matrix, and fock matrix.  
-**iop(3/33=4,5/33=3)**: Required to output coefficients of basis functions, overlap matrix, and fock matrix.  
+**pop=full**: Required to output coefficients of basis functions, overlap matrix, and Fock matrix.  
+**iop(3/33=4,5/33=3)**: Required to output coefficients of basis functions, overlap matrix, and Fock matrix.  
 
 ### How to create a gjf using Mercury
 1. Open cif file in Mercury.  
@@ -101,16 +101,16 @@ Here we define the interatomic transfer integral $u_{\alpha\beta}$ as:
 $$u_{\alpha \beta} \equiv \sum^{\alpha}_i \sum^{\beta}_j a^*_i b_j \frac{\braket{i|F|j} - \frac{1}{2} (\epsilon_A + \epsilon_B) \braket{i|S|j}}{1 - \braket{A|S|B}^2}$$
 
 
-# Referenece
+# References
 [1] Veaceslav Coropceanu *et al.*, Charge Transport in Organic Semiconductors, *Chem. Rev.* **2007**, *107*, 926-952.  
-[2] Satoru Inoue *et al.*, Regioisomeric control of layered crystallinity in solution-processable orgainc semiconductors, *Chem. Sci.* **2020**, *11*, 12493-12505.  
+[2] Satoru Inoue *et al.*, Regioisomeric control of layered crystallinity in solution-processable organic semiconductors, *Chem. Sci.* **2020**, *11*, 12493-12505.  
 
 # Example of using tcal
-1. [Satoru Inoue *et al.*, Regioisomeric control of layered crystallinity in solution-processable orgainc semiconductors, *Chem. Sci.* **2020**, *11*, 12493-12505.](https://pubs.rsc.org/en/content/articlelanding/2020/SC/D0SC04461J)  
+1. [Satoru Inoue *et al.*, Regioisomeric control of layered crystallinity in solution-processable organic semiconductors, *Chem. Sci.* **2020**, *11*, 12493-12505.](https://pubs.rsc.org/en/content/articlelanding/2020/SC/D0SC04461J)  
 2. [Toshiki Higashino *et al.*, Architecting Layered Crystalline Organic Semiconductors Based on Unsymmetric π-Extended Thienoacenes, *Chem. Mater.* **2021**, *33*, 18, 7379–7385](https://pubs.acs.org/doi/10.1021/acs.chemmater.1c01972)  
 
 # Authors
-[Matsui Laboratory, Research Center for Organic Electornics (ROEL), Yamagata University](https://matsui-lab.yz.yamagata-u.ac.jp/index-e.html)  
+[Matsui Laboratory, Research Center for Organic Electronics (ROEL), Yamagata University](https://matsui-lab.yz.yamagata-u.ac.jp/index-e.html)  
 Hiroyuki Matsui, Koki Ozawa  
 Email: h-matsui[at]yz.yamagata-u.ac.jp  
 Please replace [at] with @  
