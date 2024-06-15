@@ -1,5 +1,4 @@
 # tcal: Program for the calculation of transfer integral
-
 [![Python](https://img.shields.io/badge/python-3.7%20or%20newer-blue)](https://www.python.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![docs](https://img.shields.io/badge/docs-here-11419572)](https://matsui-lab-yamagata.github.io/tcal/)
@@ -63,47 +62,43 @@ python tcal.py -a xxx.gjf
 ```
 
 ## 3. Visualization of molecular orbitals
-1. Execute the following command.  
+1. Execute the following command.
 ```python
 python tcal.py -cr xxx.gjf
 ```
-2. Open xxx.fchk in GaussView.  
-3. [Results] &rarr; [Surfaces/Contours...]  
+2. Open xxx.fchk in GaussView.
+3. [Results] &rarr; [Surfaces/Contours...]
 ![visualize1](img/visualize1.png)  
-4. [Cube Actions] &rarr; [Load Cube]  
-5. Open xxx_m1_HOMO.cube and xxx_m2_HOMO.cube.  
+4. [Cube Actions] &rarr; [Load Cube]
+5. Open xxx_m1_HOMO.cube and xxx_m2_HOMO.cube.
 ![visualize2](img/visualize2.png)  
-6. Visualize by operating [Surface Actions] &rarr; [New Surface].  
+6. Visualize by operating [Surface Actions] &rarr; [New Surface].
 ![visualize3](img/visualize3.png)  
 ![visualize4](img/visualize4.png)  
 
-
-
 # Interatomic transfer integral
-For calculating the transfer integral between molecule A and molecule B, DFT calculations were performed for monomer A, monomer B, and the dimer AB. The monomer molecular orbitals $\ket{A}$ and $\ket{B}$ were obtained from the monomer calculations. Fock matrix F and overlap matrix S were calculated in the dimer system. Finally the intermolecular transfer integral $t^{[1]}$ was calculated by using the following equation:
+For calculating the transfer integral between molecule A and molecule B, DFT calculations were performed for monomer A, monomer B, and the dimer AB. The monomer molecular orbitals $\ket{A}$ and $\ket{B}$ were obtained from the monomer calculations. Fock matrix F and overlap matrix S were calculated in the dimer system. Finally the intermolecular transfer integral $t^{[1]}$ was calculated by using the following equation:  
 
-$$t = \frac{\braket{A|F|B} - \frac{1}{2} (\epsilon_{A}+\epsilon_{B})\braket{A|S|B}}{1 - \braket{A|S|B}^2},$$
+$$t = \frac{\braket{A|F|B} - \frac{1}{2} (\epsilon_{A}+\epsilon_{B})\braket{A|S|B}}{1 - \braket{A|S|B}^2},$$  
 
 where $\epsilon_A \equiv \braket{A|F|A}$ and $\epsilon_B \equiv \braket{B|F|B}$.  
 
-In addition to the intermolecular transfer integral in general use, we developed an interatomic transfer integral for further analysis $^{[2]}$. By grouping the basis functions $\ket{i}$ and $\ket{j}$ for each atom, the molecular orbitals can be expressed as
+In addition to the intermolecular transfer integral in general use, we developed an interatomic transfer integral for further analysis $^{[2]}$. By grouping the basis functions $\ket{i}$ and $\ket{j}$ for each atom, the molecular orbitals can be expressed as  
 
-$$\ket{A} = \sum^A_{\alpha} \sum^{\alpha}_i a_i \ket{i},$$ 
+$$\ket{A} = \sum^A_{\alpha} \sum^{\alpha}_i a_i \ket{i},$$  
+$$\ket{B} = \sum^B_{\beta} \sum^{\beta}_j b_j \ket{j},$$  
 
-$$\ket{B} = \sum^B_{\beta} \sum^{\beta}_j b_j \ket{j},$$
+where $\alpha$ and $\beta$ are the indices of atoms, $i$ and $j$ are indices of basis functions, and $a_i$ and $b_j$ are the coefficients of basis functions. Substituting this formula into aforementioned equation gives  
 
-where $\alpha$ and $\beta$ are the indices of atoms, $i$ and $j$ are indices of basis functions, and $a_i$ and $b_j$ are the coefficients of basis functions. Substituting this formula into aforementioned equation gives
+$$t = \sum^A_{\alpha} \sum^B_{\beta} \sum^{\alpha}_i \sum^{\beta}_j a^*_i b_j \frac{\braket{i|F|j} - \frac{1}{2} (\epsilon_A + \epsilon_B) \braket{i|S|j}}{1 - \braket{A|S|B}^2}$$  
 
-$$t = \sum^A_{\alpha} \sum^B_{\beta} \sum^{\alpha}_i \sum^{\beta}_j a^*_i b_j \frac{\braket{i|F|j} - \frac{1}{2} (\epsilon_A + \epsilon_B) \braket{i|S|j}}{1 - \braket{A|S|B}^2}$$
+Here we define the interatomic transfer integral $u_{\alpha\beta}$ as:  
 
-Here we define the interatomic transfer integral $u_{\alpha\beta}$ as:
-
-$$u_{\alpha \beta} \equiv \sum^{\alpha}_i \sum^{\beta}_j a^*_i b_j \frac{\braket{i|F|j} - \frac{1}{2} (\epsilon_A + \epsilon_B) \braket{i|S|j}}{1 - \braket{A|S|B}^2}$$
-
+$$u_{\alpha \beta} \equiv \sum^{\alpha}_i \sum^{\beta}_j a^*_i b_j \frac{\braket{i|F|j} - \frac{1}{2} (\epsilon_A + \epsilon_B) \braket{i|S|j}}{1 - \braket{A|S|B}^2}$$  
 
 # References
-[1] Veaceslav Coropceanu *et al.*, Charge Transport in Organic Semiconductors, *Chem. Rev.* **2007**, *107*, 926-952.  
-[2] Satoru Inoue *et al.*, Regioisomeric control of layered crystallinity in solution-processable organic semiconductors, *Chem. Sci.* **2020**, *11*, 12493-12505.  
+[1] Veaceslav Coropceanu et al., Charge Transport in Organic Semiconductors, *Chem. Rev.* **2007**, *107*, 926-952.  
+[2] Koki Ozawa et al., Statistical analysis of interatomic transfer integrals for exploring high-mobility organic semiconductors, *Sci. Technol. Adv. Mater.* **2024**, *25*, 2354652.  
 
 # Citation
 When publishing works that benefited from tcal, please cite the following article.  
@@ -111,8 +106,9 @@ Koki Ozawa, Tomoharu Okada, Hiroyuki Matsui, Statistical analysis of interatomic
 [DOI: 10.1080/14686996.2024.2354652](https://doi.org/10.1080/14686996.2024.2354652)  
 
 # Example of using tcal
-1. [Satoru Inoue *et al.*, Regioisomeric control of layered crystallinity in solution-processable organic semiconductors, *Chem. Sci.* **2020**, *11*, 12493-12505.](https://pubs.rsc.org/en/content/articlelanding/2020/SC/D0SC04461J)  
-2. [Toshiki Higashino *et al.*, Architecting Layered Crystalline Organic Semiconductors Based on Unsymmetric π-Extended Thienoacenes, *Chem. Mater.* **2021**, *33*, 18, 7379–7385.](https://pubs.acs.org/doi/10.1021/acs.chemmater.1c01972)  
+1. [Satoru Inoue et al., Regioisomeric control of layered crystallinity in solution-processable organic semiconductors, *Chem. Sci.* **2020**, *11*, 12493-12505.](https://pubs.rsc.org/en/content/articlelanding/2020/SC/D0SC04461J)  
+2. [Toshiki Higashino et al., Architecting Layered Crystalline Organic Semiconductors Based on Unsymmetric π-Extended Thienoacenes, *Chem. Mater.* **2021**, *33*, 18, 7379–7385.](https://pubs.acs.org/doi/10.1021/acs.chemmater.1c01972)  
+3. [Koki Ozawa et al., Statistical analysis of interatomic transfer integrals for exploring high-mobility organic semiconductors, *Sci. Technol. Adv. Mater.* **2024**, *25*, 2354652.](https://doi.org/10.1080/14686996.2024.2354652)  
 
 # Authors
 [Matsui Laboratory, Research Center for Organic Electronics (ROEL), Yamagata University](https://matsui-lab.yz.yamagata-u.ac.jp/index-e.html)  
@@ -121,4 +117,4 @@ Email: h-matsui[at]yz.yamagata-u.ac.jp
 Please replace [at] with @  
 
 # Acknowledgements
-This work was supported by JST, CREST, Grand Number JPMJCR18J2.
+This work was supported by JST, CREST, Grand Number JPMJCR18J2.  
