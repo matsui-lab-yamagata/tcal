@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+title: "tcal"
+type: software
+authors:
+  - family-names: "Matsui"
+    given-names: "Hiroyuki"
+  - family-names: "Ozawa"
+    given-names: "Koki"
+version: 1.0
+license: MIT
+url: "https://github.com/matsui-lab-yamagata/tcal"
+
+message: "When publishing works that benefited from tcal, please cite the following article."
+preferred-citation:
+  type: article
+  authors:
+  - family-names: "Ozawa"
+    given-names: "Koki"
+    orcid: "https://orcid.org/0009-0000-0732-1796"
+  - family-names: "Okada"
+    given-names: "Tomoharu"
+  - family-names: "Matsui"
+    given-names: "Hiroyuki"
+    orcid: "https://orcid.org/0000-0003-1956-9603"
+  title: "Statistical analysis of interatomic transfer integrals for exploring high-mobility organic semiconductors"
+  journal: "Science and Technology of Advanced Materials"
+  year: 2024
+  volume: 25
+  issue: 1
+  pages: 2354652
+  doi: "10.1080/14686996.2024.2354652"
