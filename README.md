@@ -86,6 +86,7 @@ where $\epsilon_A \equiv \braket{A|F|A}$ and $\epsilon_B \equiv \braket{B|F|B}$.
 In addition to the intermolecular transfer integral in general use, we developed an interatomic transfer integral for further analysis $^{[2]}$. By grouping the basis functions $\ket{i}$ and $\ket{j}$ for each atom, the molecular orbitals can be expressed as  
 
 $$\ket{A} = \sum^A_{\alpha} \sum^{\alpha}_i a_i \ket{i},$$  
+
 $$\ket{B} = \sum^B_{\beta} \sum^{\beta}_j b_j \ket{j},$$  
 
 where $\alpha$ and $\beta$ are the indices of atoms, $i$ and $j$ are indices of basis functions, and $a_i$ and $b_j$ are the coefficients of basis functions. Substituting this formula into aforementioned equation gives  
