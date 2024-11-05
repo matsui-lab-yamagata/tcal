@@ -9,7 +9,6 @@
 * Gaussian 09 or 16
 
 # Important notice
-* The two monomers must be the same molecule.
 * The path of the Gaussian must be set.
 
 # Options
@@ -24,6 +23,10 @@
 |-o|--output|Output csv file on the result of apta.|
 |-r|--read|Read log files without executing Gaussian.|
 |-x|--xyz|Convert xyz file to gjf file.|
+||--napta N1 N2|Perform atomic pair transfer analysis between different levels. N1 is the number of level in the first monomer. N2 is the number of level in the second monomer.|
+||--hetero N|Calculate the transfer integral of heterodimer. N is the number of atoms in the first monomer.|
+||--nlevel N|Calculate transfer integrals between different levels. N is the number of levels from HOMO-LUMO. N=0 gives all levels.|
+||--skip N...|Skip specified Gaussian calculation. If N is 1, skip 1st monomer calculation. If N is 2, skip 2nd monomer calculation. If N is 3, skip dimer calculation.|
 
 # How to use
 ## 1. Create gjf file
@@ -42,7 +45,6 @@ The xxx part is an arbitrary string.
 ![Anthracene_dimer](img/Anthracene_dimer.png)  
 3. Save in mol file or mol2 file.  
 4. Open a mol file or mol2 file in GaussView and save it in gjf format.  
-
 
 ## 2. Execute tcal.py
 Suppose the directory structure is as follows.  
@@ -77,9 +79,9 @@ python tcal.py -cr xxx.gjf
 ![visualize4](img/visualize4.png)  
 
 # Interatomic transfer integral
-For calculating the transfer integral between molecule A and molecule B, DFT calculations were performed for monomer A, monomer B, and the dimer AB. The monomer molecular orbitals $\ket{A}$ and $\ket{B}$ were obtained from the monomer calculations. Fock matrix F and overlap matrix S were calculated in the dimer system. Finally the intermolecular transfer integral $t^{[1]}$ was calculated by using the following equation:  
+For calculating the transfer integral between molecule A and molecule B, DFT calculations were performed for monomer A, monomer B, and the dimer AB. The monomer molecular orbitals $\ket{A}$ and $\ket{B}$ were obtained from the monomer calculations. Fock matrix F was calculated in the dimer system. Finally the intermolecular transfer integral $t^{[1]}$ was calculated by using the following equation:  
 
-$$t = \frac{\braket{A|F|B} - \frac{1}{2} (\epsilon_{A}+\epsilon_{B})\braket{A|S|B}}{1 - \braket{A|S|B}^2},$$  
+$$t = \frac{\braket{A|F|B} - \frac{1}{2} (\epsilon_{A}+\epsilon_{B})\braket{A|B}}{1 - \braket{A|B}^2},$$  
 
 where $\epsilon_A \equiv \braket{A|F|A}$ and $\epsilon_B \equiv \braket{B|F|B}$.  
 
@@ -91,11 +93,11 @@ $$\ket{B} = \sum^B_{\beta} \sum^{\beta}_j b_j \ket{j},$$
 
 where $\alpha$ and $\beta$ are the indices of atoms, $i$ and $j$ are indices of basis functions, and $a_i$ and $b_j$ are the coefficients of basis functions. Substituting this formula into aforementioned equation gives  
 
-$$t = \sum^A_{\alpha} \sum^B_{\beta} \sum^{\alpha}_i \sum^{\beta}_j a^*_i b_j \frac{\braket{i|F|j} - \frac{1}{2} (\epsilon_A + \epsilon_B) \braket{i|S|j}}{1 - \braket{A|S|B}^2}$$  
+$$t = \sum^A_{\alpha} \sum^B_{\beta} \sum^{\alpha}_i \sum^{\beta}_j a^*_i b_j \frac{\braket{i|F|j} - \frac{1}{2} (\epsilon_A + \epsilon_B) \braket{i|j}}{1 - \braket{A|B}^2}$$  
 
 Here we define the interatomic transfer integral $u_{\alpha\beta}$ as:  
 
-$$u_{\alpha \beta} \equiv \sum^{\alpha}_i \sum^{\beta}_j a^*_i b_j \frac{\braket{i|F|j} - \frac{1}{2} (\epsilon_A + \epsilon_B) \braket{i|S|j}}{1 - \braket{A|S|B}^2}$$  
+$$u_{\alpha \beta} \equiv \sum^{\alpha}_i \sum^{\beta}_j a^*_i b_j \frac{\braket{i|F|j} - \frac{1}{2} (\epsilon_A + \epsilon_B) \braket{i|j}}{1 - \braket{A|B}^2}$$  
 
 # References
 [1] Veaceslav Coropceanu et al., Charge Transport in Organic Semiconductors, *Chem. Rev.* **2007**, *107*, 926-952.  
