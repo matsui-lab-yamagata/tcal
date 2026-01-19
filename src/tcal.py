@@ -1,17 +1,19 @@
 """Tcal"""
 import argparse
 import csv
-from datetime import datetime
 import functools
 import math
 import os
 import platform
 import re
 import subprocess
-from time import time
 import traceback
+from datetime import datetime
+from time import time
+from typing import List, Literal, Optional, TextIO, Tuple
 
 import numpy as np
+from numpy.typing import ArrayLike, NDArray
 
 
 print = functools.partial(print, flush=True)
@@ -64,9 +66,9 @@ def main():
     )
     args = parser.parse_args()
 
-    print('--------------------------------------')
-    print(' tcal 3.0 (2024/09/21) by Matsui Lab. ')
-    print('--------------------------------------')
+    print('----------------------------------------')
+    print(' tcal 3.1.0 (2026/01/20) by Matsui Lab. ')
+    print('----------------------------------------')
     print(f'\nInput File Name: {args.file}')
     Tcal.print_timestamp()
     before = time()
@@ -105,7 +107,7 @@ def main():
 
         tcal.print_transfer_integrals()
         if args.nlevel is not None:
-            tcal.print_tranfer_integral_diff_levels(args.nlevel, output_ti_diff_levels=args.output)
+            tcal.print_transfer_integral_diff_levels(args.nlevel, output_ti_diff_levels=args.output)
 
         if args.apta:
             analyze_orbital = 'HOMO'
@@ -135,9 +137,9 @@ def main():
 
 class Tcal:
     """Calculate transfer integrals."""
-    EV = 4.35974417e-18 / 1.60217653e-19 * 1000.0
+    EV: float = 4.35974417e-18 / 1.60217653e-19 * 1000.0
 
-    def __init__(self, file, monomer1_atom_num=-1):
+    def __init__(self, file: str, monomer1_atom_num: int = -1) -> None:
         """Inits TcalClass.
 
         Parameters
@@ -176,7 +178,12 @@ class Tcal:
         self.n_atoms2 = None
 
     @staticmethod
-    def cal_transfer_integrals(bra, overlap, fock, ket):
+    def cal_transfer_integrals(
+        bra: NDArray[np.float64],
+        overlap: NDArray[np.float64],
+        fock: NDArray[np.float64],
+        ket: NDArray[np.float64]
+    ) -> float:
         """Calculate intermolecular transfer integrals.
 
         Parameters
@@ -192,7 +199,7 @@ class Tcal:
 
         Returns
         -------
-        double
+        float
             Intermolecular transfer integrals.
         """
         s11 = bra @ overlap @ bra
@@ -210,7 +217,7 @@ class Tcal:
         return transfer
 
     @staticmethod
-    def check_normal_termination(reader):
+    def check_normal_termination(reader: TextIO) -> TextIO:
         """Whether the calculation of gaussian was successful or not.
 
         Parameters
@@ -236,7 +243,7 @@ class Tcal:
                 return reader
 
     @staticmethod
-    def extract_coordinates(reader):
+    def extract_coordinates(reader: TextIO) -> Tuple[TextIO, List[str]]:
         """Extract coordinates from gjf file of dimer.
 
         Parameters
@@ -270,7 +277,7 @@ class Tcal:
             coordinates.append(line)
 
     @staticmethod
-    def extract_num(pattern, line, idx=0):
+    def extract_num(pattern: str, line: str, idx: int = 0) -> Optional[int]:
         """Extract integer in strings.
 
         Parameters
@@ -279,6 +286,8 @@ class Tcal:
             Strings using regular expression.
         line : str
             String of target.
+        idx : int
+            Index of integer. default 0
 
         Returns
         -------
@@ -291,7 +300,7 @@ class Tcal:
         return None
 
     @staticmethod
-    def output_csv(file_name, array):
+    def output_csv(file_name: str, array: ArrayLike) -> None:
         """Output csv file of array.
 
         Parameters
@@ -306,7 +315,7 @@ class Tcal:
             writer.writerows(array)
 
     @staticmethod
-    def print_matrix(matrix):
+    def print_matrix(matrix: ArrayLike) -> None:
         """Print matrix.
 
         Parameters
@@ -325,7 +334,7 @@ class Tcal:
                 print(f'{row[-1]:>9}')
 
     @staticmethod
-    def print_timestamp():
+    def print_timestamp() -> None:
         """Print timestamp."""
         month = {
             1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun',
@@ -335,7 +344,7 @@ class Tcal:
         print(f"Timestamp: {dt_now.strftime('%a')} {month[dt_now.month]} {dt_now.strftime('%d %H:%M:%S %Y')}")
 
     @staticmethod
-    def read_matrix(reader, n_basis, n_bsuse):
+    def read_matrix(reader: TextIO, n_basis: int, n_bsuse: int) -> NDArray[np.float64]:
         """Read matrix.
 
         Parameters
@@ -363,7 +372,7 @@ class Tcal:
         return mat
 
     @staticmethod
-    def read_symmetric_matrix(reader, n_basis):
+    def read_symmetric_matrix(reader: TextIO, n_basis: int) -> NDArray[np.float64]:
         """Read symmetric matrix.
 
         Parameters
@@ -389,15 +398,24 @@ class Tcal:
 
         return mat
 
-    def atomic_pair_transfer_analysis(self, analyze_orbital='HOMO', output_apta=False):
+    def atomic_pair_transfer_analysis(
+        self,
+        analyze_orbital: Literal['HOMO', 'LUMO'] = 'HOMO',
+        output_apta: bool = False
+    ) -> NDArray[np.float64]:
         """Calculate atomic pair transfer integrals.
 
         Parameters
         ----------
-        analyze_orbital : str, optional
+        analyze_orbital : str
             Analyze orbital., default 'HOMO'
-        output_apta : bool, optional
+        output_apta : bool
             If it is True, output csv file of atomic pair transfer integrals., default False
+
+        Returns
+        -------
+        numpy.array
+            The array of atomic pair transfer analysis.
         """
         if analyze_orbital.upper() == 'LUMO':
             orb1 = self.mo1[self.n_elect1]
@@ -426,25 +444,31 @@ class Tcal:
 
         return apta
 
-    def check_extension_log(self):
+    def check_extension_log(self) -> None:
         """Check the extension of log file."""
         if os.path.exists(f'{self._base_path}.out'):
             self._extension_log = '.out'
         else :
             self._extension_log = '.log'
 
-    def convert_xyz_to_gjf(self, function='B3LYP/6-31G(d,p)', nprocshared=4, mem=16, unit='GB'):
+    def convert_xyz_to_gjf(
+        self,
+        function: str = 'B3LYP/6-31G(d,p)',
+        nprocshared: int = 4,
+        mem: int = 16,
+        unit: str = 'GB'
+    ) -> None:
         """Convert xyz file to gjf file.
 
         Parameters
         ----------
-        function : str, optional
-            _description_, default 'b3lyp/6-31g(d,p)'
-        nprocshared : int, optional
+        function : str
+            Gaussian calculation method and basis set., default 'b3lyp/6-31g(d,p)'
+        nprocshared : int
             The number of nprocshared., default 4
-        mem : int, optional
+        mem : int
             The number of memory., default 16
-        unit : str, optional
+        unit : str
             The unit of memory., default 'GB'
         """
         coordinates = []
@@ -496,7 +520,7 @@ class Tcal:
             f.write('# IOp(3/33=4,5/33=3)\n')
             f.write('\n')
 
-    def create_cube_file(self):
+    def create_cube_file(self) -> None:
         """Create cube file."""
         self._execute(['formchk', f'{self._base_path}.chk', f'{self._base_path}.fchk'])
         self._create_dummy_cube_file()
@@ -522,7 +546,7 @@ class Tcal:
         print(f' {self._base_path}_m2_LUMO.cube')
         print(f' {self._base_path}_m2_NLUMO.cube')
 
-    def create_monomer_file(self):
+    def create_monomer_file(self) -> None:
         """Create gjf files of monomer from gjf file of dimer."""
         link0 = []
         # List for storing characters between coordinates and link1 when gem is used for the basis function.
@@ -579,17 +603,27 @@ class Tcal:
         print(f' {self._base_path}_m1.gjf')
         print(f' {self._base_path}_m2.gjf')
 
-    def custom_atomic_pair_transfer_analysis(self, analyze_orb1, analyze_orb2, output_apta=False):
+    def custom_atomic_pair_transfer_analysis(
+        self,
+        analyze_orb1: int,
+        analyze_orb2: int,
+        output_apta: bool = False
+    ) -> NDArray[np.float64]:
         """Calculate atomic pair transfer integrals.
 
         Parameters
         ----------
-        analyze_orb1 : int, optional
+        analyze_orb1 : int
             Analyze orbital., default -1
-        analyze_orb2 : int, optional
+        analyze_orb2 : int
             Analyze orbital., default -1
-        output_apta : bool, optional
+        output_apta : bool
             If it is True, output csv file of atomic pair transfer integrals., default False
+
+        Returns
+        -------
+        numpy.array
+            The array of atomic pair transfer analysis.
         """
         orb1 = self.mo1[analyze_orb1-1]
         orb2 = self.mo2[analyze_orb2-1]
@@ -617,14 +651,18 @@ class Tcal:
 
         return apta
 
-    def print_apta(self, a_transfer, message='Atomic Pair Transfer Analysis'):
+    def print_apta(
+        self,
+        a_transfer: NDArray[np.float64],
+        message: str = 'Atomic Pair Transfer Analysis'
+    ) -> NDArray[np.float64]:
         """Create list of apta and print it.
 
         Parameters
         ----------
         a_transfer : numpy.array
             Result of atomic pair transfer analysis.
-        message : str, optional
+        message : str
             Message to print., default 'Atomic Pair Transfer Analysis'
 
         Returns
@@ -671,7 +709,7 @@ class Tcal:
 
         return apta
 
-    def print_transfer_integrals(self):
+    def print_transfer_integrals(self) -> None:
         """Print transfer integrals of NLUMO, LUMO, HOMO and NHOMO."""
         print()
         print("--------------------")
@@ -697,11 +735,24 @@ class Tcal:
         )
         print(f'NHOMO\t{transfer:>9.3f}\tmeV')
 
-    def print_tranfer_integral_diff_levels(self, nlevel, output_ti_diff_levels=False):
+    def print_transfer_integral_diff_levels(
+        self,
+        nlevel: int,
+        output_ti_diff_levels: bool = False
+    ) -> None:
+        """Print transfer integrals between different orbitals.
+
+        Parameters
+        ----------
+        nlevel : int
+            The number of levels to print.
+        output_ti_diff_levels : bool
+            If it is True, output csv file of transfer integrals between different orbitals., default False
+        """
         print()
-        print('----------------------------------------------')
-        print(' Tranfer Integrals between Different Orbitals ')
-        print('----------------------------------------------')
+        print('-----------------------------------------------')
+        print(' Transfer Integrals between Different Orbitals ')
+        print('-----------------------------------------------')
 
         if nlevel == 0:
             start1 = 0
@@ -749,14 +800,18 @@ class Tcal:
         if output_ti_diff_levels:
             self.output_csv(f'{self._base_path}_ti_diff_levels.csv', ti_diff_levels)
 
-    def read_monomer1(self, is_matrix=False, output_matrix=False):
+    def read_monomer1(
+        self,
+        is_matrix: bool = False,
+        output_matrix: bool = False
+    ) -> None:
         """Extract MO coefficients from log file of monomer.
 
         Parameters
         ----------
-        is_matrix : bool, optional
+        is_matrix : bool
             If it is True, print MO coefficients., default False
-        output_matrix : bool, optional
+        output_matrix : bool
             If it is True, Output MO coefficients., default False
         """
         print(f'reading {self._base_path}_m1{self._extension_log}')
@@ -790,7 +845,11 @@ class Tcal:
         if output_matrix:
             self.output_csv(f'{self._base_path}_mo1.csv', self.mo1)
 
-    def read_monomer2(self, is_matrix=False, output_matrix=False):
+    def read_monomer2(
+        self,
+        is_matrix: bool = False,
+        output_matrix: bool = False
+    ) -> None:
         """Extract MO coefficients from log file of monomer.
 
         Parameters
@@ -831,14 +890,18 @@ class Tcal:
         if output_matrix:
             self.output_csv(f'{self._base_path}_mo2.csv', self.mo2)
 
-    def read_dimer(self, is_matrix=False, output_matrix=False):
+    def read_dimer(
+        self,
+        is_matrix: bool = False,
+        output_matrix: bool = False
+    ) -> None:
         """Extract overlap and fock matrix from log file of dimer.
 
         Parameters
         ----------
-        is_matrix : bool, optional
+        is_matrix : bool
             If it is True, print overlap and fock matrix., default False
-        output_matrix : bool, optional
+        output_matrix : bool
             If it is True, Output overlap and fock matrix., default False
         """
         print(f'reading {self._base_path}{self._extension_log}')
@@ -882,14 +945,18 @@ class Tcal:
             self.output_csv(f'{self._base_path}_overlap.csv', self.overlap)
             self.output_csv(f'{self._base_path}_fock.csv', self.fock)
 
-    def run_gaussian(self, gaussian_command, skip_monomer_num=[0]):
+    def run_gaussian(
+        self,
+        gaussian_command: str,
+        skip_monomer_num: List[int] = [0]
+    ) -> int:
         """Execute gjf files using gaussian.
 
         Parameters
         ----------
         gaussian_command : str
             Command of gaussian.
-        skip_monomer_num: list[int], optional
+        skip_monomer_num: list[int]
             If it is 1, skip 1st monomer calculation.
             If it is 2, skip 2nd monomer calculation.
             If it is 3, skip dimer calculation.
@@ -924,7 +991,7 @@ class Tcal:
 
         return 0
 
-    def _create_dummy_cube_file(self):
+    def _create_dummy_cube_file(self) -> None:
         """Create dummy cube file."""
         min_x = 100
         max_x = -100
@@ -975,14 +1042,18 @@ class Tcal:
             f.write(f'{num_y}, 0.0, {cube_delta/bohr:.3f}, 0.0\n')
             f.write(f'{num_z}, 0.0, 0.0, {cube_delta/bohr:.3f}\n')
 
-    def _execute(self, command_list, complete_message='Calculation completed'):
+    def _execute(
+        self,
+        command_list: List[str],
+        complete_message: str = 'Calculation completed'
+    ) -> subprocess.CompletedProcess:
         """Execute command
 
         Parameters
         ----------
         command_list : list
             A list of space-separated commands.
-        complete_message : str, optional
+        complete_message : str
             The message when the calculation is completed., default 'Calculation completed'
 
         Returns
@@ -1005,7 +1076,7 @@ class Tcal:
 
         return res
 
-    def _read_gross_orb_populations(self, reader):
+    def _read_gross_orb_populations(self, reader: TextIO) -> None:
         """Extract atomic orbitals and atomic symbols.
 
         Parameters
@@ -1042,12 +1113,12 @@ class Tcal:
 
 class PairAnalysis:
     """Analyze atomic pair transfer integrals."""
-    def __init__(self, apta):
+    def __init__(self, apta: ArrayLike) -> None:
         """Inits PairAnalysisClass.
 
         Parameters
         ----------
-        apta : list
+        apta : array_like
             List of atomic pair transfer integrals including labels.
         """
         self._labels = []
@@ -1066,7 +1137,7 @@ class PairAnalysis:
         self.n_atoms1 = self._a_transfer.shape[0]
         self.n_atoms2 = self._a_transfer.shape[1]
 
-    def print_largest_pairs(self):
+    def print_largest_pairs(self) -> None:
         """Print largest pairs."""
         transfer = np.sum(self._a_transfer)
         a_transfer_flat = self._a_transfer.flatten()
@@ -1093,7 +1164,7 @@ class PairAnalysis:
             ratio = np.divide(a_transfer_flat[a_i], transfer, out=np.array(0.0), where=(transfer!=0)) * 100
             print(f'{ranks[i]:<4}\t{pair:<13}\t{a_transfer_flat[a_i]:>14}\t{ratio:>9.1f}')
 
-    def print_element_pairs(self):
+    def print_element_pairs(self) -> None:
         """Print element pairs."""
         element_pair = {
             'H-I': 0.0, 'C-C': 0.0, 'C-H': 0.0, 'C-S': 0.0, 'C-Se': 0.0,
