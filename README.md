@@ -11,6 +11,17 @@
 # Important notice
 * The path of the Gaussian must be set.
 
+# Installation
+```
+pip install yu-tcal
+```
+
+## Verify Installation
+After installation, you can verify by running:
+```
+tcal --help
+```
+
 # Options
 |Short|Long|Explanation|
 |----|----|----|
@@ -50,7 +61,6 @@ The xxx part is an arbitrary string.
 Suppose the directory structure is as follows.  
 ```
 yyy
-├── tcal.py
 └── xxx.gjf
 ```
 1. Open a terminal.
@@ -60,13 +70,13 @@ cd yyy
 ```
 3. Execute the following command.
 ```python
-python tcal.py -a xxx.gjf
+tcal -a xxx.gjf
 ```
 
 ## 3. Visualization of molecular orbitals
 1. Execute the following command.
 ```python
-python tcal.py -cr xxx.gjf
+tcal -cr xxx.gjf
 ```
 2. Open xxx.fchk in GaussView.
 3. [Results] &rarr; [Surfaces/Contours...]
