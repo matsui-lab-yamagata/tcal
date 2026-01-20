@@ -1,3 +1,10 @@
 .DS_Store
 __pycache__/
 test*
+
+*.egg-info/
+/build/
+.buildinfo
+.doctrees/
+.pypirc
+/dist/
