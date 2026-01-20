@@ -1,5 +1,5 @@
 [project]
-name = "tcal"
+name = "yu-tcal"
 version = "3.1.0"
 description = "Add your description here"
 requires-python = ">=3.9"
