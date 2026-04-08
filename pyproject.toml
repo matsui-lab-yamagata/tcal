@@ -1,6 +1,6 @@
 [project]
 name = "yu-tcal"
-version = "4.0.3"
+version = "4.1.0"
 description = "Add your description here"
 requires-python = ">=3.9"
 dependencies = [
@@ -51,14 +51,17 @@ tcal = "tcal.tcal:main"
 
 [project.optional-dependencies]
 pyscf = [
+    "basis-set-exchange>=0.12",
     "pyscf>=2.12.1",
 ]
 gpu4pyscf-cuda11 = [
+    "basis-set-exchange>=0.12",
     "pyscf>=2.12.1",
     "cutensor-cu11>=2.2.0",
     "gpu4pyscf-cuda11x>=1.5.2",
 ]
 gpu4pyscf-cuda12 = [
+    "basis-set-exchange>=0.12",
     "pyscf>=2.12.1",
     "cutensor-cu12>=2.5.0",
     "gpu4pyscf-cuda12x>=1.5.2",

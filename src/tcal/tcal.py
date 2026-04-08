@@ -74,12 +74,15 @@ def main():
         '--gpu4pyscf', help='use GPU acceleration via gpu4pyscf (PySCF only)', action='store_true'
     )
     parser.add_argument(
+        '--bse', help='use basis set exchange (PySCF only)', action='store_true'
+    )
+    parser.add_argument(
         '--cart', help='use Cartesian basis functions (PySCF only)', action='store_true'
     )
     args = parser.parse_args()
 
     print('----------------------------------------')
-    print(' tcal 4.0.3 (2026/02/26) by Matsui Lab. ')
+    print(' tcal 4.1.0 (2026/04/08) by Matsui Lab. ')
     print('----------------------------------------')
     print(f'\nInput File Name: {args.file}')
     Tcal.print_timestamp()
@@ -109,6 +112,7 @@ def main():
             ncore=args.cpu,
             max_memory_gb=args.mem,
             cart=args.cart,
+            bse=args.bse,
         )
         if not args.read:
             tcal.run_pyscf(skip_monomer_num=args.skip)

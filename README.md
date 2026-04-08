@@ -67,6 +67,7 @@ tcal --help
 ||--skip N...|Skip specified calculation. If N is 1, skip 1st monomer calculation. If N is 2, skip 2nd monomer calculation. If N is 3, skip dimer calculation.|
 ||--pyscf|Use PySCF instead of Gaussian. Input file must be an xyz file.|
 ||--gpu4pyscf|Use GPU acceleration via gpu4pyscf. (PySCF only)|
+||--bse|Use Basis Set Exchange to obtain basis sets. Allows use of basis sets not included in PySCF. (PySCF only)|
 
 # How to use
 ## Using Gaussian
@@ -136,6 +137,10 @@ To use GPU acceleration:
 ```
 tcal --gpu4pyscf -M "B3LYP/6-31G(d,p)" -a xxx.xyz
 ```
+To use basis sets from Basis Set Exchange (e.g., def2-TZVP, cc-pVDZ):
+```
+tcal --pyscf --bse -M "B3LYP/def2-TZVP" -a xxx.xyz
+```
 To read from existing checkpoint files without re-running calculations:
 ```
 tcal --pyscf -ar xxx.xyz
@@ -166,6 +171,7 @@ $$u_{\alpha \beta} \equiv \sum^{\alpha}_i \sum^{\beta}_j a^*_i b_j \frac{\braket
 [1] Veaceslav Coropceanu et al., Charge Transport in Organic Semiconductors, *Chem. Rev.* **2007**, *107*, 926-952.  
 [2] Koki Ozawa et al., Statistical analysis of interatomic transfer integrals for exploring high-mobility organic semiconductors, *Sci. Technol. Adv. Mater.* **2024**, *25*, 2354652.  
 [3] Qiming Sun et al., Recent developments in the PySCF program package, *J. Chem. Phys.* **2020**, *153*, 024109.  
+[4] Benjamin P. Pritchard et al., New Basis Set Exchange: An Open, Up-to-Date Resource for the Molecular Sciences Community, *J. Chem. Inf. Model.* **2019**, *59*, 4814-4820.  
 
 # Citation
 When publishing works that benefited from tcal, please cite the following article.  
