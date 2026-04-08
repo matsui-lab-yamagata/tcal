@@ -5,6 +5,7 @@ from typing import List, Tuple
 
 import numpy as np
 from pyscf import dft, gto, lib, scf
+from pyscf.gto.basis import bse
 from pyscf.tools import cubegen
 
 from tcal.tcal import Tcal
@@ -26,6 +27,7 @@ class TcalPySCF(Tcal):
         ncore: int = 4,
         max_memory_gb: int = 16,
         cart: bool = False,
+        bse: bool = False,
     ) -> None:
         """Inits TcalPySCF.
 
@@ -50,6 +52,8 @@ class TcalPySCF(Tcal):
             Maximum memory in GB for PySCF. default 16
         cart : bool
             If True, use Cartesian basis functions. default False
+        bse: bool
+            If True, use basis set exchange. default False
         """
         if spin != 0:
             raise NotImplementedError('TcalPySCF only supports closed-shell (spin=0) molecules.')
@@ -64,6 +68,7 @@ class TcalPySCF(Tcal):
         self._ncore = ncore
         self._max_memory_gb = max_memory_gb
         self._cart = cart
+        self._bse = bse
         self.extension_log = '.chk'
 
     def create_cube_file(self) -> None:
@@ -103,6 +108,9 @@ class TcalPySCF(Tcal):
         """
         atoms_dimer, atoms_m1, atoms_m2 = self._parse_xyz()
         functional, basis = self._method.split('/', 1)
+        if self._bse:
+            unique_elements = list(set(atom[0] for atom in atoms_dimer))
+            basis = bse.get_basis(basis, elements=unique_elements)
 
         if 1 in skip_monomer_num:
             print('skip 1st monomer calculation')
