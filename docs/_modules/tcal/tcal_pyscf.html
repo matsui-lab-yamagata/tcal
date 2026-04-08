@@ -236,6 +236,7 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyscf</span><span class="w"> </span><span class="kn">import</span> <span class="n">dft</span><span class="p">,</span> <span class="n">gto</span><span class="p">,</span> <span class="n">lib</span><span class="p">,</span> <span class="n">scf</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyscf.gto.basis</span><span class="w"> </span><span class="kn">import</span> <span class="n">bse</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyscf.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">cubegen</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">tcal.tcal</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tcal</span>
@@ -259,6 +260,7 @@
         <span class="n">ncore</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
         <span class="n">max_memory_gb</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">16</span><span class="p">,</span>
         <span class="n">cart</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">bse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Inits TcalPySCF.</span>
 
@@ -283,6 +285,8 @@
 <span class="sd">            Maximum memory in GB for PySCF. default 16</span>
 <span class="sd">        cart : bool</span>
 <span class="sd">            If True, use Cartesian basis functions. default False</span>
+<span class="sd">        bse: bool</span>
+<span class="sd">            If True, use basis set exchange. default False</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">spin</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;TcalPySCF only supports closed-shell (spin=0) molecules.&#39;</span><span class="p">)</span>
@@ -297,6 +301,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_ncore</span> <span class="o">=</span> <span class="n">ncore</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_max_memory_gb</span> <span class="o">=</span> <span class="n">max_memory_gb</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cart</span> <span class="o">=</span> <span class="n">cart</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bse</span> <span class="o">=</span> <span class="n">bse</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">extension_log</span> <span class="o">=</span> <span class="s1">&#39;.chk&#39;</span>
 
 <div class="viewcode-block" id="TcalPySCF.create_cube_file">
@@ -341,6 +346,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">atoms_dimer</span><span class="p">,</span> <span class="n">atoms_m1</span><span class="p">,</span> <span class="n">atoms_m2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_xyz</span><span class="p">()</span>
         <span class="n">functional</span><span class="p">,</span> <span class="n">basis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_method</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bse</span><span class="p">:</span>
+            <span class="n">unique_elements</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">atom</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">atoms_dimer</span><span class="p">))</span>
+            <span class="n">basis</span> <span class="o">=</span> <span class="n">bse</span><span class="o">.</span><span class="n">get_basis</span><span class="p">(</span><span class="n">basis</span><span class="p">,</span> <span class="n">elements</span><span class="o">=</span><span class="n">unique_elements</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="mi">1</span> <span class="ow">in</span> <span class="n">skip_monomer_num</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;skip 1st monomer calculation&#39;</span><span class="p">)</span>

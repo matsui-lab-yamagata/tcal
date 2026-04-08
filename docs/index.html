@@ -388,6 +388,10 @@
 <td><p><code class="docutils literal notranslate"><span class="pre">--gpu4pyscf</span></code></p></td>
 <td><p>Use GPU acceleration via gpu4pyscf. (PySCF only)</p></td>
 </tr>
+<tr class="row-even"><td></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">--bse</span></code></p></td>
+<td><p>Use Basis Set Exchange to obtain basis sets. Allows use of basis sets not included in PySCF. (PySCF only)</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -488,6 +492,10 @@ For heterodimers, use the <code class="docutils literal notranslate"><span class
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tcal<span class="w"> </span>--gpu4pyscf<span class="w"> </span>-M<span class="w"> </span><span class="s2">&quot;B3LYP/6-31G(d,p)&quot;</span><span class="w"> </span>-a<span class="w"> </span>xxx.xyz
 </pre></div>
 </div>
+<p>To use basis sets from Basis Set Exchange (e.g., def2-TZVP, cc-pVDZ):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tcal<span class="w"> </span>--pyscf<span class="w"> </span>--bse<span class="w"> </span>-M<span class="w"> </span><span class="s2">&quot;B3LYP/def2-TZVP&quot;</span><span class="w"> </span>-a<span class="w"> </span>xxx.xyz
+</pre></div>
+</div>
 <p>To read from existing checkpoint files without re-running calculations:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tcal<span class="w"> </span>--pyscf<span class="w"> </span>-ar<span class="w"> </span>xxx.xyz
 </pre></div>
@@ -528,6 +536,7 @@ For heterodimers, use the <code class="docutils literal notranslate"><span class
 <p>[1] Veaceslav Coropceanu et al., Charge Transport in Organic Semiconductors, <em>Chem. Rev.</em> <strong>2007</strong>, <em>107</em>, 926-952.</p>
 <p>[2] Koki Ozawa et al., Statistical analysis of interatomic transfer integrals for exploring high-mobility organic semiconductors, <em>Sci. Technol. Adv. Mater.</em> <strong>2024</strong>, <em>25</em>, 2354652.</p>
 <p>[3] Qiming Sun et al., Recent developments in the PySCF program package, <em>J. Chem. Phys.</em> <strong>2020</strong>, <em>153</em>, 024109.</p>
+<p>[4] Benjamin P. Pritchard et al., New Basis Set Exchange: An Open, Up-to-Date Resource for the Molecular Sciences Community, <em>J. Chem. Inf. Model.</em> <strong>2019</strong>, <em>59</em>, 4814-4820.</p>
 </section>
 <section id="citation">
 <h2>Citation<a class="headerlink" href="#citation" title="Link to this heading">¶</a></h2>
