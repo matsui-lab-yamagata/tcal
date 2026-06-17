@@ -326,7 +326,7 @@
     <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
 
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;----------------------------------------&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; tcal 5.0.1 (2026/05/11) by Matsui Lab. &#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; tcal 5.0.2 (2026/06/18) by Matsui Lab. &#39;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;----------------------------------------&#39;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Input File Name: </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="n">Tcal</span><span class="o">.</span><span class="n">print_timestamp</span><span class="p">()</span>
@@ -1318,7 +1318,8 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">run_gaussian</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">gaussian_command</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">skip_monomer_num</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">skip_monomer_num</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Execute gjf files using gaussian.</span>
 
@@ -1330,32 +1331,35 @@
 <span class="sd">            If it is 1, skip 1st monomer calculation.</span>
 <span class="sd">            If it is 2, skip 2nd monomer calculation.</span>
 <span class="sd">            If it is 3, skip dimer calculation.</span>
+<span class="sd">        verbose : bool</span>
+<span class="sd">            If False, suppress all progress/status output (including warnings). default True</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        int</span>
 <span class="sd">            Returncode of subprocess.run.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">log</span> <span class="o">=</span> <span class="nb">print</span> <span class="k">if</span> <span class="n">verbose</span> <span class="k">else</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="mi">1</span> <span class="ow">in</span> <span class="n">skip_monomer_num</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;skip 1st monomer calculation&#39;</span><span class="p">)</span>
+            <span class="n">log</span><span class="p">(</span><span class="s1">&#39;skip 1st monomer calculation&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">([</span><span class="n">gaussian_command</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_base_path</span><span class="si">}</span><span class="s1">_m1.gjf&#39;</span><span class="p">],</span> <span class="n">complete_message</span><span class="o">=</span><span class="s1">&#39;1st monomer calculation completed&#39;</span><span class="p">)</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">([</span><span class="n">gaussian_command</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_base_path</span><span class="si">}</span><span class="s1">_m1.gjf&#39;</span><span class="p">],</span> <span class="n">complete_message</span><span class="o">=</span><span class="s1">&#39;1st monomer calculation completed&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">returncode</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">res</span><span class="o">.</span><span class="n">returncode</span>
 
         <span class="k">if</span> <span class="mi">2</span> <span class="ow">in</span> <span class="n">skip_monomer_num</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;skip 2nd monomer calculation&#39;</span><span class="p">)</span>
+            <span class="n">log</span><span class="p">(</span><span class="s1">&#39;skip 2nd monomer calculation&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">([</span><span class="n">gaussian_command</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_base_path</span><span class="si">}</span><span class="s1">_m2.gjf&#39;</span><span class="p">],</span> <span class="n">complete_message</span><span class="o">=</span><span class="s1">&#39;2nd monomer calculation completed&#39;</span><span class="p">)</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">([</span><span class="n">gaussian_command</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_base_path</span><span class="si">}</span><span class="s1">_m2.gjf&#39;</span><span class="p">],</span> <span class="n">complete_message</span><span class="o">=</span><span class="s1">&#39;2nd monomer calculation completed&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">returncode</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">res</span><span class="o">.</span><span class="n">returncode</span>
 
         <span class="k">if</span> <span class="mi">3</span> <span class="ow">in</span> <span class="n">skip_monomer_num</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;skip dimer calculation&#39;</span><span class="p">)</span>
+            <span class="n">log</span><span class="p">(</span><span class="s1">&#39;skip dimer calculation&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">([</span><span class="n">gaussian_command</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_base_path</span><span class="si">}</span><span class="s1">.gjf&#39;</span><span class="p">],</span> <span class="n">complete_message</span><span class="o">=</span><span class="s1">&#39;dimer calculation completed&#39;</span><span class="p">)</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">([</span><span class="n">gaussian_command</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_base_path</span><span class="si">}</span><span class="s1">.gjf&#39;</span><span class="p">],</span> <span class="n">complete_message</span><span class="o">=</span><span class="s1">&#39;dimer calculation completed&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
 
             <span class="k">return</span> <span class="n">res</span><span class="o">.</span><span class="n">returncode</span>
 
@@ -1416,7 +1420,8 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">_execute</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">command_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
-        <span class="n">complete_message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Calculation completed&#39;</span>
+        <span class="n">complete_message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Calculation completed&#39;</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CompletedProcess</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Execute command</span>
 
@@ -1426,24 +1431,27 @@
 <span class="sd">            A list of space-separated commands.</span>
 <span class="sd">        complete_message : str</span>
 <span class="sd">            The message when the calculation is completed., default &#39;Calculation completed&#39;</span>
+<span class="sd">        verbose : bool</span>
+<span class="sd">            If False, suppress all progress/status output (including warnings). default True</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        CompletedProcess</span>
 <span class="sd">            Return value of subprocess.run.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">log</span> <span class="o">=</span> <span class="nb">print</span> <span class="k">if</span> <span class="n">verbose</span> <span class="k">else</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="kc">None</span>
         <span class="n">command</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">command_list</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&gt; </span><span class="si">{</span><span class="n">command</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&gt; </span><span class="si">{</span><span class="n">command</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
         <span class="n">res</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">command_list</span><span class="p">,</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="c1"># check error</span>
         <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">returncode</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Failed to execute </span><span class="si">{</span><span class="n">command</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Failed to execute </span><span class="si">{</span><span class="n">command</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">complete_message</span><span class="p">)</span>
+            <span class="n">log</span><span class="p">(</span><span class="n">complete_message</span><span class="p">)</span>
             <span class="n">base_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">command_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39; </span><span class="si">{</span><span class="n">base_path</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">extension_log</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39; </span><span class="si">{</span><span class="n">base_path</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">extension_log</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">res</span>
 

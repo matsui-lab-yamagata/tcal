@@ -300,7 +300,7 @@
 
 <div class="viewcode-block" id="TcalORCA.run_orca">
 <a class="viewcode-back" href="../../tcal.html#tcal.tcal_orca.TcalORCA.run_orca">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">run_orca</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">skip_monomer_num</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_orca</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">skip_monomer_num</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Run ORCA calculations for monomers and dimer.</span>
 
 <span class="sd">        Parameters</span>
@@ -309,7 +309,10 @@
 <span class="sd">            If 1 is in the list, skip 1st monomer calculation.</span>
 <span class="sd">            If 2 is in the list, skip 2nd monomer calculation.</span>
 <span class="sd">            If 3 is in the list, skip dimer calculation.</span>
+<span class="sd">        verbose : bool</span>
+<span class="sd">            If False, suppress all progress/status output (including warnings). default True</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">log</span> <span class="o">=</span> <span class="nb">print</span> <span class="k">if</span> <span class="n">verbose</span> <span class="k">else</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="kc">None</span>
         <span class="n">atoms_dimer</span><span class="p">,</span> <span class="n">atoms_m1</span><span class="p">,</span> <span class="n">atoms_m2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_xyz</span><span class="p">()</span>
         <span class="n">functional</span><span class="p">,</span> <span class="n">basis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_method</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
@@ -317,7 +320,7 @@
         <span class="n">stem</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_base_path</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
 
         <span class="k">if</span> <span class="mi">1</span> <span class="ow">in</span> <span class="n">skip_monomer_num</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;skip 1st monomer calculation&#39;</span><span class="p">)</span>
+            <span class="n">log</span><span class="p">(</span><span class="s1">&#39;skip 1st monomer calculation&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_output1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_orca_calculation</span><span class="p">(</span>
                 <span class="n">atoms</span><span class="o">=</span><span class="n">atoms_m1</span><span class="p">,</span>
@@ -326,10 +329,11 @@
                 <span class="n">basename</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">stem</span><span class="si">}</span><span class="s1">_m1&#39;</span><span class="p">,</span>
                 <span class="n">working_dir</span><span class="o">=</span><span class="n">working_dir</span><span class="p">,</span>
                 <span class="n">label</span><span class="o">=</span><span class="s1">&#39;1st monomer&#39;</span><span class="p">,</span>
+                <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
             <span class="p">)</span>
 
         <span class="k">if</span> <span class="mi">2</span> <span class="ow">in</span> <span class="n">skip_monomer_num</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;skip 2nd monomer calculation&#39;</span><span class="p">)</span>
+            <span class="n">log</span><span class="p">(</span><span class="s1">&#39;skip 2nd monomer calculation&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_output2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_orca_calculation</span><span class="p">(</span>
                 <span class="n">atoms</span><span class="o">=</span><span class="n">atoms_m2</span><span class="p">,</span>
@@ -338,10 +342,11 @@
                 <span class="n">basename</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">stem</span><span class="si">}</span><span class="s1">_m2&#39;</span><span class="p">,</span>
                 <span class="n">working_dir</span><span class="o">=</span><span class="n">working_dir</span><span class="p">,</span>
                 <span class="n">label</span><span class="o">=</span><span class="s1">&#39;2nd monomer&#39;</span><span class="p">,</span>
+                <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
             <span class="p">)</span>
 
         <span class="k">if</span> <span class="mi">3</span> <span class="ow">in</span> <span class="n">skip_monomer_num</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;skip dimer calculation&#39;</span><span class="p">)</span>
+            <span class="n">log</span><span class="p">(</span><span class="s1">&#39;skip dimer calculation&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_output_d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_orca_calculation</span><span class="p">(</span>
                 <span class="n">atoms</span><span class="o">=</span><span class="n">atoms_dimer</span><span class="p">,</span>
@@ -350,6 +355,7 @@
                 <span class="n">basename</span><span class="o">=</span><span class="n">stem</span><span class="p">,</span>
                 <span class="n">working_dir</span><span class="o">=</span><span class="n">working_dir</span><span class="p">,</span>
                 <span class="n">label</span><span class="o">=</span><span class="s1">&#39;dimer&#39;</span><span class="p">,</span>
+                <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
             <span class="p">)</span></div>
 
 
@@ -592,6 +598,7 @@
         <span class="n">basename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">working_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
         <span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set up and run an ORCA single-point calculation via OPI.</span>
 
@@ -609,12 +616,15 @@
 <span class="sd">            Directory where ORCA files will be written.</span>
 <span class="sd">        label : str</span>
 <span class="sd">            Human-readable label for progress messages.</span>
+<span class="sd">        verbose : bool</span>
+<span class="sd">            If False, suppress all progress/status output (including warnings). default True</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        Output</span>
 <span class="sd">            OPI Output object with parsed results.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">log</span> <span class="o">=</span> <span class="nb">print</span> <span class="k">if</span> <span class="n">verbose</span> <span class="k">else</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="kc">None</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">opi.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Calculator</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">opi.input.structures.structure</span><span class="w"> </span><span class="kn">import</span> <span class="n">Structure</span>
 
@@ -637,7 +647,7 @@
         <span class="n">calc</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">add_arbitrary_string</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;%pal nprocs </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_ncore</span><span class="si">}</span><span class="s1"> end</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">calc</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">add_arbitrary_string</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;%maxcore </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_max_memory_mb</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;running </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s1"> calculation&#39;</span><span class="p">)</span>
+        <span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;running </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s1"> calculation&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open_mpi_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">_prev_opi_mpi</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;OPI_MPI&#39;</span><span class="p">)</span>
             <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;OPI_MPI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open_mpi_path</span>
@@ -654,12 +664,12 @@
         <span class="n">output</span><span class="o">.</span><span class="n">parse</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">output</span><span class="o">.</span><span class="n">terminated_normally</span><span class="p">():</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;WARNING: </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s1"> calculation did not terminate normally.&#39;</span><span class="p">)</span>
+            <span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;WARNING: </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s1"> calculation did not terminate normally.&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">output</span><span class="o">.</span><span class="n">scf_converged</span><span class="p">():</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;WARNING: </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s1"> SCF did not converge.&#39;</span><span class="p">)</span>
+            <span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;WARNING: </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s1"> SCF did not converge.&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s1"> calculation completed&#39;</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39; </span><span class="si">{</span><span class="n">working_dir</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">basename</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;.out&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s1"> calculation completed&#39;</span><span class="p">)</span>
+            <span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39; </span><span class="si">{</span><span class="n">working_dir</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">basename</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;.out&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">output</span>
 
