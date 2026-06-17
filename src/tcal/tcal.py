@@ -93,7 +93,7 @@ def main():
     args = parser.parse_args()
 
     print('----------------------------------------')
-    print(' tcal 5.0.1 (2026/05/11) by Matsui Lab. ')
+    print(' tcal 5.0.2 (2026/06/18) by Matsui Lab. ')
     print('----------------------------------------')
     print(f'\nInput File Name: {args.file}')
     Tcal.print_timestamp()
@@ -1017,7 +1017,8 @@ class Tcal:
     def run_gaussian(
         self,
         gaussian_command: str,
-        skip_monomer_num: List[int] = [0]
+        skip_monomer_num: List[int] = [0],
+        verbose: bool = True
     ) -> int:
         """Execute gjf files using gaussian.
 
@@ -1029,32 +1030,35 @@ class Tcal:
             If it is 1, skip 1st monomer calculation.
             If it is 2, skip 2nd monomer calculation.
             If it is 3, skip dimer calculation.
+        verbose : bool
+            If False, suppress all progress/status output (including warnings). default True
 
         Returns
         -------
         int
             Returncode of subprocess.run.
         """
+        log = print if verbose else lambda *args, **kwargs: None
         if 1 in skip_monomer_num:
-            print('skip 1st monomer calculation')
+            log('skip 1st monomer calculation')
         else:
-            res = self._execute([gaussian_command, f'{self._base_path}_m1.gjf'], complete_message='1st monomer calculation completed')
+            res = self._execute([gaussian_command, f'{self._base_path}_m1.gjf'], complete_message='1st monomer calculation completed', verbose=verbose)
 
             if res.returncode:
                 return res.returncode
 
         if 2 in skip_monomer_num:
-            print('skip 2nd monomer calculation')
+            log('skip 2nd monomer calculation')
         else:
-            res = self._execute([gaussian_command, f'{self._base_path}_m2.gjf'], complete_message='2nd monomer calculation completed')
+            res = self._execute([gaussian_command, f'{self._base_path}_m2.gjf'], complete_message='2nd monomer calculation completed', verbose=verbose)
 
             if res.returncode:
                 return res.returncode
 
         if 3 in skip_monomer_num:
-            print('skip dimer calculation')
+            log('skip dimer calculation')
         else:
-            res = self._execute([gaussian_command, f'{self._base_path}.gjf'], complete_message='dimer calculation completed')
+            res = self._execute([gaussian_command, f'{self._base_path}.gjf'], complete_message='dimer calculation completed', verbose=verbose)
 
             return res.returncode
 
@@ -1114,7 +1118,8 @@ class Tcal:
     def _execute(
         self,
         command_list: List[str],
-        complete_message: str = 'Calculation completed'
+        complete_message: str = 'Calculation completed',
+        verbose: bool = True
     ) -> subprocess.CompletedProcess:
         """Execute command
 
@@ -1124,24 +1129,27 @@ class Tcal:
             A list of space-separated commands.
         complete_message : str
             The message when the calculation is completed., default 'Calculation completed'
+        verbose : bool
+            If False, suppress all progress/status output (including warnings). default True
 
         Returns
         -------
         CompletedProcess
             Return value of subprocess.run.
         """
+        log = print if verbose else lambda *args, **kwargs: None
         command = ' '.join(command_list)
-        print(f'> {command}')
+        log(f'> {command}')
 
         res = subprocess.run(command_list, capture_output=True, text=True)
 
         # check error
         if res.returncode:
-            print(f'Failed to execute {command}')
+            log(f'Failed to execute {command}')
         else:
-            print(complete_message)
+            log(complete_message)
             base_path = os.path.splitext(command_list[-1])[0]
-            print(f' {base_path}{self.extension_log}')
+            log(f' {base_path}{self.extension_log}')
 
         return res
 

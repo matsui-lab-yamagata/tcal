@@ -1,6 +1,6 @@
 [project]
 name = "yu-tcal"
-version = "5.0.1"
+version = "5.0.2"
 description = "Program for the calculation of transfer integral"
 requires-python = ">=3.11"
 dependencies = [

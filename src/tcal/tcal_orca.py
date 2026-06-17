@@ -65,7 +65,7 @@ class TcalORCA(Tcal):
         self._output2 = None  # cache for monomer 2 OPI Output object
         self._output_d = None  # cache for dimer OPI Output object
 
-    def run_orca(self, skip_monomer_num: List[int] = [0]) -> None:
+    def run_orca(self, skip_monomer_num: List[int] = [0], verbose: bool = True) -> None:
         """Run ORCA calculations for monomers and dimer.
 
         Parameters
@@ -74,7 +74,10 @@ class TcalORCA(Tcal):
             If 1 is in the list, skip 1st monomer calculation.
             If 2 is in the list, skip 2nd monomer calculation.
             If 3 is in the list, skip dimer calculation.
+        verbose : bool
+            If False, suppress all progress/status output (including warnings). default True
         """
+        log = print if verbose else lambda *args, **kwargs: None
         atoms_dimer, atoms_m1, atoms_m2 = self._parse_xyz()
         functional, basis = self._method.split('/', 1)
 
@@ -82,7 +85,7 @@ class TcalORCA(Tcal):
         stem = Path(self._base_path).name
 
         if 1 in skip_monomer_num:
-            print('skip 1st monomer calculation')
+            log('skip 1st monomer calculation')
         else:
             self._output1 = self._run_orca_calculation(
                 atoms=atoms_m1,
@@ -91,10 +94,11 @@ class TcalORCA(Tcal):
                 basename=f'{stem}_m1',
                 working_dir=working_dir,
                 label='1st monomer',
+                verbose=verbose,
             )
 
         if 2 in skip_monomer_num:
-            print('skip 2nd monomer calculation')
+            log('skip 2nd monomer calculation')
         else:
             self._output2 = self._run_orca_calculation(
                 atoms=atoms_m2,
@@ -103,10 +107,11 @@ class TcalORCA(Tcal):
                 basename=f'{stem}_m2',
                 working_dir=working_dir,
                 label='2nd monomer',
+                verbose=verbose,
             )
 
         if 3 in skip_monomer_num:
-            print('skip dimer calculation')
+            log('skip dimer calculation')
         else:
             self._output_d = self._run_orca_calculation(
                 atoms=atoms_dimer,
@@ -115,6 +120,7 @@ class TcalORCA(Tcal):
                 basename=stem,
                 working_dir=working_dir,
                 label='dimer',
+                verbose=verbose,
             )
 
     def read_monomer1(
@@ -344,6 +350,7 @@ class TcalORCA(Tcal):
         basename: str,
         working_dir: Path,
         label: str,
+        verbose: bool = True,
     ):
         """Set up and run an ORCA single-point calculation via OPI.
 
@@ -361,12 +368,15 @@ class TcalORCA(Tcal):
             Directory where ORCA files will be written.
         label : str
             Human-readable label for progress messages.
+        verbose : bool
+            If False, suppress all progress/status output (including warnings). default True
 
         Returns
         -------
         Output
             OPI Output object with parsed results.
         """
+        log = print if verbose else lambda *args, **kwargs: None
         from opi.core import Calculator
         from opi.input.structures.structure import Structure
 
@@ -389,7 +399,7 @@ class TcalORCA(Tcal):
         calc.input.add_arbitrary_string(f'%pal nprocs {self._ncore} end\n')
         calc.input.add_arbitrary_string(f'%maxcore {self._max_memory_mb}\n')
 
-        print(f'running {label} calculation')
+        log(f'running {label} calculation')
         if self._open_mpi_path is not None:
             _prev_opi_mpi = os.environ.get('OPI_MPI')
             os.environ['OPI_MPI'] = self._open_mpi_path
@@ -406,12 +416,12 @@ class TcalORCA(Tcal):
         output.parse()
 
         if not output.terminated_normally():
-            print(f'WARNING: {label} calculation did not terminate normally.')
+            log(f'WARNING: {label} calculation did not terminate normally.')
         if not output.scf_converged():
-            print(f'WARNING: {label} SCF did not converge.')
+            log(f'WARNING: {label} SCF did not converge.')
         else:
-            print(f'{label} calculation completed')
-            print(f' {working_dir / (basename + ".out")}')
+            log(f'{label} calculation completed')
+            log(f' {working_dir / (basename + ".out")}')
 
         return output
 

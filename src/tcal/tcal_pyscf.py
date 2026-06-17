@@ -96,7 +96,7 @@ class TcalPySCF(Tcal):
                 cubegen.orbital(mol, outfile, mo_coeff[:, idx], nx=80, ny=80, nz=80)
                 print(f' {outfile}')
 
-    def run_pyscf(self, skip_monomer_num: List[int] = [0]) -> None:
+    def run_pyscf(self, skip_monomer_num: List[int] = [0], verbose: bool = True) -> None:
         """Run PySCF calculations for monomers and dimer.
 
         Parameters
@@ -105,7 +105,10 @@ class TcalPySCF(Tcal):
             If 1 is in the list, skip 1st monomer calculation.
             If 2 is in the list, skip 2nd monomer calculation.
             If 3 is in the list, skip dimer calculation.
+        verbose : bool
+            If False, suppress all progress/status output (including warnings). default True
         """
+        log = print if verbose else lambda *args, **kwargs: None
         atoms_dimer, atoms_m1, atoms_m2 = self._parse_xyz()
         functional, basis = self._method.split('/', 1)
         if self._bse:
@@ -113,7 +116,7 @@ class TcalPySCF(Tcal):
             basis = bse.get_basis(basis, elements=unique_elements)
 
         if 1 in skip_monomer_num:
-            print('skip 1st monomer calculation')
+            log('skip 1st monomer calculation')
         else:
             _, self._mf1 = self._run_pyscf_calculation(
                 atoms=atoms_m1,
@@ -127,10 +130,11 @@ class TcalPySCF(Tcal):
                 ncore=self._ncore,
                 max_memory_gb=self._max_memory_gb,
                 cart=self._cart,
+                verbose=verbose,
             )
 
         if 2 in skip_monomer_num:
-            print('skip 2nd monomer calculation')
+            log('skip 2nd monomer calculation')
         else:
             _, self._mf2 = self._run_pyscf_calculation(
                 atoms=atoms_m2,
@@ -144,10 +148,11 @@ class TcalPySCF(Tcal):
                 ncore=self._ncore,
                 max_memory_gb=self._max_memory_gb,
                 cart=self._cart,
+                verbose=verbose,
             )
 
         if 3 in skip_monomer_num:
-            print('skip dimer calculation')
+            log('skip dimer calculation')
         else:
             _, self._mf_d = self._run_pyscf_calculation(
                 atoms=atoms_dimer,
@@ -161,6 +166,7 @@ class TcalPySCF(Tcal):
                 ncore=self._ncore,
                 max_memory_gb=self._max_memory_gb,
                 cart=self._cart,
+                verbose=verbose,
             )
 
     def read_monomer1(
@@ -327,6 +333,7 @@ class TcalPySCF(Tcal):
         ncore: int = 4,
         max_memory_gb: int = 16,
         cart: bool = False,
+        verbose: bool = True,
     ) -> Tuple:
         """Build a PySCF Mole, run SCF, and save results to chkfile.
 
@@ -354,12 +361,15 @@ class TcalPySCF(Tcal):
             Maximum memory in GB. default 16
         cart : bool
             If True, use Cartesian basis functions. default False
+        verbose : bool
+            If False, suppress all progress/status output (including warnings). default True
 
         Returns
         -------
         tuple
             (mol, mf)
         """
+        log = print if verbose else lambda *args, **kwargs: None
         lib.num_threads(ncore)
         mol = gto.Mole()
         mol.atom = atoms
@@ -397,15 +407,15 @@ class TcalPySCF(Tcal):
                 mf.xc = functional
         mf.chkfile = chkfile  # CPU のみ: kernel() 時に numpy 配列を自動保存
 
-        print(f'running {label} calculation')
+        log(f'running {label} calculation')
         mf.kernel()
 
         if not mf.converged:
-            print(f'WARNING: SCF did not converge for {label}')
+            log(f'WARNING: SCF did not converge for {label}')
         else:
-            print(f'{label} calculation completed')
+            log(f'{label} calculation completed')
             lib.chkfile.save(chkfile, 'job_status/completed', True)
-            print(f' {chkfile}')
+            log(f' {chkfile}')
 
         lib.chkfile.save(chkfile, 'tcal/fock', self._to_numpy(mf.get_fock()))
 
