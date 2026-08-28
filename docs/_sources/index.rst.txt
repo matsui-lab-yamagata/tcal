@@ -1,5 +1,5 @@
 ===========================================================
-tcal Documentation
+tcal |version| documentation
 ===========================================================
 
 .. image:: https://img.shields.io/badge/python-3.11%20or%20newer-blue
@@ -9,6 +9,10 @@ tcal Documentation
 .. image:: https://img.shields.io/badge/License-MIT-blue.svg
    :target: https://opensource.org/licenses/MIT
    :alt: License: MIT
+
+.. image:: https://img.shields.io/pypi/v/yu-tcal
+   :target: https://pypi.org/project/yu-tcal/
+   :alt: PyPI
 
 Requirements
 ============

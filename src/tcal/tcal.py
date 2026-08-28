@@ -92,9 +92,11 @@ def main():
     )
     args = parser.parse_args()
 
-    print('----------------------------------------')
-    print(' tcal 5.0.2 (2026/06/18) by Matsui Lab. ')
-    print('----------------------------------------')
+    from tcal import __version__, __date__
+    banner = f' tcal {__version__} ({__date__}) by Matsui Lab. '
+    print('-' * len(banner))
+    print(banner)
+    print('-' * len(banner))
     print(f'\nInput File Name: {args.file}')
     Tcal.print_timestamp()
     before = time()

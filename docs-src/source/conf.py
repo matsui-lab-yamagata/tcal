@@ -5,8 +5,11 @@ import sys
 
 sys.path.insert(0, os.path.abspath("../../src"))
 
+from tcal import __version__
 
 project = "tcal"
+version = __version__
+release = __version__
 copyright = "2023, Hiroyuki Matsui, Koki Ozawa"
 author = "Hiroyuki Matsui, Koki Ozawa"
 

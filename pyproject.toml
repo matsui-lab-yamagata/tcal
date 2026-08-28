@@ -1,6 +1,6 @@
 [project]
 name = "yu-tcal"
-version = "5.0.2"
+dynamic = ["version"]
 description = "Program for the calculation of transfer integral"
 requires-python = ">=3.11"
 dependencies = [
@@ -29,6 +29,9 @@ classifiers = [
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "src/tcal/__init__.py"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/tcal"]
