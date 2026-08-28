@@ -10,6 +10,10 @@ tcal Documentation
    :target: https://opensource.org/licenses/MIT
    :alt: License: MIT
 
+.. image:: https://img.shields.io/pypi/v/yu-tcal
+   :target: https://pypi.org/project/yu-tcal/
+   :alt: PyPI
+
 Requirements
 ============
 

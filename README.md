@@ -1,6 +1,7 @@
 # tcal: Program for the calculation of transfer integral
 [![Python](https://img.shields.io/badge/python-3.11%20or%20newer-blue)](https://www.python.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![PyPI](https://img.shields.io/pypi/v/yu-tcal)](https://pypi.org/project/yu-tcal/)
 [![docs](https://img.shields.io/badge/docs-here-11419572)](https://matsui-lab-yamagata.github.io/tcal/)
 
 # Requirements
