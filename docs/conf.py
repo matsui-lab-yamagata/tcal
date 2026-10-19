@@ -3,7 +3,7 @@ import subprocess
 import sys
 
 
-sys.path.insert(0, os.path.abspath("../../src"))
+sys.path.insert(0, os.path.abspath("../src"))
 
 from tcal import __version__
 
