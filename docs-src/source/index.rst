@@ -178,7 +178,7 @@ First of all, create a gaussian input file as follows:
 
 **Example:** xxx.gjf
 
-.. image:: https://raw.githubusercontent.com/matsui-lab-yamagata/tcal/main/img/gjf_file_example.png
+.. image:: https://raw.githubusercontent.com/matsui-lab-yamagata-univ/tcal/main/img/gjf_file_example.png
    :alt: gjf file example
 
 The xxx part is an arbitrary string.
@@ -198,7 +198,7 @@ How to create a gjf using Mercury
 1. Open cif file in Mercury.
 2. Display the dimer you want to calculate.
 
-   .. image:: https://raw.githubusercontent.com/matsui-lab-yamagata/tcal/main/img/Anthracene_dimer.png
+   .. image:: https://raw.githubusercontent.com/matsui-lab-yamagata-univ/tcal/main/img/Anthracene_dimer.png
       :alt: Anthracene dimer
 
 3. Save in mol file or mol2 file.
@@ -239,21 +239,21 @@ Suppose the directory structure is as follows:
 2. Open xxx.fchk in GaussView.
 3. [Results] → [Surfaces/Contours...]
 
-   .. image:: https://raw.githubusercontent.com/matsui-lab-yamagata/tcal/main/img/visualize1.png
+   .. image:: https://raw.githubusercontent.com/matsui-lab-yamagata-univ/tcal/main/img/visualize1.png
       :alt: Visualize 1
 
 4. [Cube Actions] → [Load Cube]
 5. Open xxx_m1_HOMO.cube and xxx_m2_HOMO.cube.
 
-   .. image:: https://raw.githubusercontent.com/matsui-lab-yamagata/tcal/main/img/visualize2.png
+   .. image:: https://raw.githubusercontent.com/matsui-lab-yamagata-univ/tcal/main/img/visualize2.png
       :alt: Visualize 2
 
 6. Visualize by operating [Surface Actions] → [New Surface].
 
-   .. image:: https://raw.githubusercontent.com/matsui-lab-yamagata/tcal/main/img/visualize3.png
+   .. image:: https://raw.githubusercontent.com/matsui-lab-yamagata-univ/tcal/main/img/visualize3.png
       :alt: Visualize 3
 
-   .. image:: https://raw.githubusercontent.com/matsui-lab-yamagata/tcal/main/img/visualize4.png
+   .. image:: https://raw.githubusercontent.com/matsui-lab-yamagata-univ/tcal/main/img/visualize4.png
       :alt: Visualize 4
 
 Using PySCF
@@ -480,4 +480,4 @@ License
 
 This project is released under the MIT License.
 
-For more details, see the `LICENSE file on GitHub <https://github.com/matsui-lab-yamagata/tcal/blob/main/LICENSE>`_.
+For more details, see the `LICENSE file on GitHub <https://github.com/matsui-lab-yamagata-univ/tcal/blob/main/LICENSE>`_.

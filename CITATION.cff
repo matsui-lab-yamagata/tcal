@@ -8,7 +8,7 @@ authors:
     given-names: "Koki"
 version: 1.0
 license: MIT
-url: "https://github.com/matsui-lab-yamagata/tcal"
+url: "https://github.com/matsui-lab-yamagata-univ/tcal"
 
 message: "When publishing works that benefited from tcal, please cite the following article."
 preferred-citation:
