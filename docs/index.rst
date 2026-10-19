@@ -451,7 +451,7 @@ API Reference
    :maxdepth: 2
    :caption: API Reference
 
-   modules
+   tcal
 
 Indices and Tables
 ==================

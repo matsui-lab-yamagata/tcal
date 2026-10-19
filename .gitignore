@@ -8,3 +8,4 @@ test*
 .doctrees/
 .pypirc
 /dist/
+/docs/_build/
