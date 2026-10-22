@@ -1,4 +1,4 @@
-__version__ = "5.0.5"
+__version__ = "5.0.6"
 __date__ = "2026/10/22"
 
 from .tcal import Tcal, PairAnalysis
