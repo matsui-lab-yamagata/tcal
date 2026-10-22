@@ -44,6 +44,9 @@ dev = [
     "taskipy>=1.14.1",
 ]
 
+[tool.uv]
+constraint-dependencies = ["certifi>=2026.10.19"]
+
 [tool.taskipy.tasks]
 generate-docs = "sphinx-apidoc -f -T -o docs src && sphinx-build -b html docs docs/_build/html"
 
