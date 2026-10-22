@@ -1,6 +1,7 @@
 .DS_Store
 __pycache__/
 test*
+tmp*
 
 *.egg-info/
 /build/
@@ -9,3 +10,4 @@ test*
 .pypirc
 /dist/
 /docs/_build/
+.claude/
