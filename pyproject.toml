@@ -36,6 +36,9 @@ path = "src/tcal/__init__.py"
 [tool.hatch.build.targets.wheel]
 packages = ["src/tcal"]
 
+[tool.hatch.build.targets.sdist]
+exclude = ["/.github"]
+
 [dependency-groups]
 dev = [
     "autodoc-pydantic>=2.2.0",
